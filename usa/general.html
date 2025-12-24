@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎄 General Christmas Message | USA</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <style>
+        .hero {
+            background: linear-gradient(135deg, rgba(178, 34, 52, 0.3), rgba(60, 59, 110, 0.3)),
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.5), var(--dark-bg));
+            min-height: 100vh;
+        }
+
+        .message-banner {
+            border-color: #B22234;
+            background: linear-gradient(135deg, rgba(178, 34, 52, 0.2), rgba(60, 59, 110, 0.2));
+        }
+
+        .recipient-name {
+            color: #B22234;
+            text-shadow: 0 0 15px #B22234;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cable"></div>
+    <div class="christmas-lights"></div>
+    <div class="snowflakes"></div>
+    <a href="index.html" class="nav-back">← Back to USA</a>
+    <a href="https://agem2024.github.io/SEGURITI-USC/card.html" class="floating-icon floating-icon-left" title="My Card"
+        target="_blank">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="4" width="20" height="16" rx="2" />
+            <circle cx="8" cy="10" r="2" />
+            <path d="M14 8h4M14 12h4M6 16h12" />
+        </svg>
+    </a>
+    <a href="https://agem2024.github.io/SEGURITI-USC/orion-bots.html" class="floating-icon floating-icon-right"
+        title="ORION Tech" target="_blank">
+        <video autoplay muted loop playsinline>
+            <source src="../assets/video/orion_logo.mp4" type="video/mp4">
+        </video>
+    </a>
+
+    <section class="hero">
+        <h1 class="hero-title">🎄 Merry Christmas</h1>
+        <p class="hero-subtitle" style="color: #B22234;">Warm wishes from the heart</p>
+
+        <div class="message-banner" style="margin-top: 50px;">
+            <p class="message-text" id="christmasMessage">
+                ❄️ Dear <span class="recipient-name" id="recipientNameDisplay">Friend</span>,<br><br>
+                May this Christmas season fill your home with warmth,
+                your heart with love, and your life with laughter.
+                May the magic of the holidays bring you peace and joy.<br><br>
+                Wishing you a beautiful Christmas surrounded by the people you love
+                and a New Year full of wonderful possibilities! 🎄✨
+            </p>
+            <div class="name-input-container">
+                <input type="text" id="recipientName" class="name-input" placeholder="Enter their name..."
+                    maxlength="30" style="border-color: #B22234;">
+                <button class="generate-btn" onclick="updateRecipientName()"
+                    style="background: linear-gradient(45deg, #B22234, #3C3B6E);">🎄 Personalize</button>
+            </div>
+        </div>
+
+        <div class="gender-selector" style="margin-top: 40px;">
+            <a href="mujeres.html" class="gender-btn"><span>👩</span> See For Her</a>
+            <a href="hombres.html" class="gender-btn"><span>👨</span> See For Him</a>
+        </div>
+    </section>
+    <footer class="footer">
+        <p>🇺🇸 With love from the USA 🎄</p>
+    </footer>
+    <script src="../assets/js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎄 Tu Tarjeta Navideña Personalizada</title>
+    <meta name="description" content="Abre tu tarjeta navideña personalizada con mensaje especial generado con IA.">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎄</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 50%, #0a0a0a 100%);
+            font-family: 'Playfair Display', serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* Efecto de nieve */
+        .snowflakes-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .snowflake {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0.3;
+            }
+        }
+
+        /* Contenedor principal */
+        .card-container {
+            position: relative;
+            z-index: 10;
+            perspective: 1500px;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        /* Sobre de la tarjeta */
+        .envelope {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/10;
+            cursor: pointer;
+            transition: transform 0.5s ease;
+        }
+
+        .envelope:hover {
+            transform: scale(1.02);
+        }
+
+        .envelope-body {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #c9a227 0%, #8b6914 100%);
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(180deg, #d4af37 0%, #c9a227 100%);
+            clip-path: polygon(0 0, 50% 100%, 100% 0);
+            transform-origin: top center;
+            transition: transform 0.8s ease;
+            z-index: 5;
+            cursor: pointer;
+        }
+
+        .envelope-flap::before {
+            content: '✉️ Haz clic para abrir';
+            position: absolute;
+            bottom: 30%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: #FFD700;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            animation: pulse 2s infinite;
+        }
+
+        .envelope.opened .envelope-flap {
+            transform: rotateX(-180deg);
+        }
+
+        /* Tarjeta interior */
+        .card-content {
+            position: absolute;
+            width: 90%;
+            left: 5%;
+            top: 10%;
+            background: linear-gradient(135deg, rgba(139, 0, 0, 0.9) 0%, rgba(0, 100, 0, 0.9) 100%);
+            border-radius: 15px;
+            padding: 40px;
+            opacity: 0;
+            transform: translateY(50px) scale(0.8);
+            transition: all 0.8s ease 0.3s;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6);
+            border: 3px solid #FFD700;
+            z-index: 3;
+        }
+
+        .envelope.opened .card-content {
+            opacity: 1;
+            transform: translateY(-20px) scale(1);
+        }
+
+        /* Imagen de la tarjeta */
+        .card-image {
+            width: 100%;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            object-fit: cover;
+            max-height: 300px;
+        }
+
+        /* Nombre del destinatario */
+        .recipient-name {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: #FFD700;
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #FFD700, 0 0 20px #FFD700;
+            }
+
+            to {
+                text-shadow: 0 0 20px #ff6b6b, 0 0 40px #ff6b6b;
+            }
+        }
+
+        /* Mensaje */
+        .card-message {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            border-left: 4px solid #FFD700;
+        }
+
+        /* Video embebido */
+        .card-video {
+            width: 100%;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        /* Remitente */
+        .sender-info {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            font-style: italic;
+            margin-top: 20px;
+        }
+
+        /* Footer */
+        .card-footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .create-own-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(45deg, #FFD700, #ff6b6b);
+            color: #000;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        .create-own-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.6);
+        }
+
+        /* Estado de carga */
+        .loading-state {
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .loading-state h2 {
+            color: #FFD700;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .spinner {
+            font-size: 4rem;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Error state */
+        .error-state {
+            text-align: center;
+            padding: 50px;
+            color: #ff6b6b;
+        }
+
+        /* Botones de compartir */
+        .share-section {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        .share-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .share-btn.whatsapp {
+            background: #25D366;
+            color: #fff;
+        }
+
+        .share-btn.telegram {
+            background: #0088cc;
+            color: #fff;
+        }
+
+        .share-btn.copy {
+            background: linear-gradient(45deg, #39FF14, #bc13fe);
+            color: #000;
+        }
+
+        .share-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .recipient-name {
+                font-size: 2rem;
+            }
+
+            .card-message {
+                font-size: 1rem;
+            }
+
+            .card-content {
+                padding: 25px;
+            }
+        }
+
+        /* Música */
+        .music-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid #FFD700;
+            background: rgba(0, 0, 0, 0.8);
+            color: #FFD700;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .music-toggle:hover {
+            background: #FFD700;
+            color: #000;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Nieve de fondo -->
+    <div class="snowflakes-bg" id="snowBg"></div>
+
+    <!-- Botón de música -->
+    <button class="music-toggle" id="musicToggle" onclick="toggleMusic()">🎵</button>
+    <audio id="bgMusic" loop>
+        <source src="assets/audio/christmas-music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Contenedor principal -->
+    <div class="card-container">
+        <!-- Estado de carga -->
+        <div id="loadingState" class="loading-state">
+            <div class="spinner">🎄</div>
+            <h2>Cargando tu tarjeta...</h2>
+            <p style="color: rgba(255,255,255,0.6);">Preparando algo especial para ti ✨</p>
+        </div>
+
+        <!-- Error state -->
+        <div id="errorState" class="error-state" style="display: none;">
+            <h2>😢 Tarjeta no encontrada</h2>
+            <p>El enlace puede haber expirado o ser incorrecto.</p>
+            <a href="index.html" class="create-own-btn" style="margin-top: 20px;">Crear mi propia tarjeta</a>
+        </div>
+
+        <!-- Sobre con tarjeta -->
+        <div id="envelope" class="envelope" style="display: none;" onclick="openEnvelope()">
+            <div class="envelope-body"></div>
+            <div class="envelope-flap"></div>
+
+            <div class="card-content" id="cardContent">
+                <img id="cardImage" class="card-image" src="" alt="Imagen navideña" style="display: none;">
+                <video id="cardVideo" class="card-video" controls style="display: none;"></video>
+
+                <h1 class="recipient-name">✨ <span id="recipientName">Amigo/a</span> ✨</h1>
+
+                <div class="card-message" id="cardMessage">
+                    Cargando mensaje...
+                </div>
+
+                <div class="sender-info">
+                    Con cariño, <span id="senderName">Un ser querido</span>
+                </div>
+
+                <div class="card-footer">
+                    <a href="index.html" class="create-own-btn">🎁 Crear mi propia tarjeta</a>
+
+                    <div class="share-section">
+                        <button class="share-btn whatsapp" onclick="shareWhatsApp()">📱 Compartir</button>
+                        <button class="share-btn telegram" onclick="shareTelegram()">✈️ Telegram</button>
+                        <button class="share-btn copy" onclick="copyLink()">📋 Copiar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/ai-generator.js"></script>
+    <script>
+        // ============================================
+        // CARGAR TARJETA
+        // ============================================
+        async function loadCard() {
+            const params = new URLSearchParams(window.location.search);
+            const cardId = params.get('id');
+            const nombre = params.get('nombre');
+
+            // Si hay parámetros URL simples (modo legacy)
+            if (nombre && !cardId) {
+                displayLegacyCard(params);
+                return;
+            }
+
+            // Si hay ID de tarjeta, cargar desde API/localStorage
+            if (cardId) {
+                const card = await window.aiCardGenerator.getCard(cardId);
+
+                if (card) {
+                    displayCard(card);
+                } else {
+                    showError();
+                }
+            } else {
+                showError();
+            }
+        }
+
+        function displayCard(card) {
+            document.getElementById('loadingState').style.display = 'none';
+            document.getElementById('envelope').style.display = 'block';
+
+            document.getElementById('recipientName').textContent = card.nombre || 'Amigo/a';
+            document.getElementById('cardMessage').textContent = card.mensaje || '¡Feliz Navidad!';
+            document.getElementById('senderName').textContent = card.remitente || 'Un ser querido';
+
+            // Imagen
+            if (card.imageUrl) {
+                const img = document.getElementById('cardImage');
+                img.src = card.imageUrl;
+                img.style.display = 'block';
+            }
+
+            // Video
+            if (card.attachments && card.attachments.length > 0) {
+                const video = card.attachments.find(a => a.type && a.type.startsWith('video'));
+                if (video) {
+                    const videoEl = document.getElementById('cardVideo');
+                    videoEl.src = video.url;
+                    videoEl.style.display = 'block';
+                }
+            }
+
+            // Actualizar título
+            document.title = `🎄 Tarjeta para ${card.nombre}`;
+        }
+
+        function displayLegacyCard(params) {
+            const nombre = params.get('nombre') || params.get('name') || 'Amigo/a';
+            const pais = params.get('pais') || 'colombia';
+            const tema = params.get('tema') || 'familiar';
+
+            document.getElementById('loadingState').style.display = 'none';
+            document.getElementById('envelope').style.display = 'block';
+
+            document.getElementById('recipientName').textContent = nombre;
+            document.getElementById('cardMessage').textContent = window.aiCardGenerator.getFallbackMessage(nombre, tema);
+
+            const img = document.getElementById('cardImage');
+            img.src = window.aiCardGenerator.getFallbackImage(pais);
+            img.style.display = 'block';
+
+            document.title = `🎄 Tarjeta para ${nombre}`;
+        }
+
+        function showError() {
+            document.getElementById('loadingState').style.display = 'none';
+            document.getElementById('errorState').style.display = 'block';
+        }
+
+        // ============================================
+        // INTERACCIONES
+        // ============================================
+        function openEnvelope() {
+            const envelope = document.getElementById('envelope');
+            envelope.classList.add('opened');
+
+            // Reproducir música automáticamente
+            const music = document.getElementById('bgMusic');
+            music.play().catch(() => console.log('Autoplay blocked'));
+        }
+
+        function toggleMusic() {
+            const music = document.getElementById('bgMusic');
+            const btn = document.getElementById('musicToggle');
+
+            if (music.paused) {
+                music.play();
+                btn.textContent = '🎵';
+            } else {
+                music.pause();
+                btn.textContent = '🔇';
+            }
+        }
+
+        function shareWhatsApp() {
+            const url = window.location.href;
+            const nombre = document.getElementById('recipientName').textContent;
+            const text = `🎄 ¡Mira esta tarjeta navideña especial para ${nombre}! ${url}`;
+            window.open(`https://wa.me/?text=${encodeURIComponent(text)}`);
+        }
+
+        function shareTelegram() {
+            const url = window.location.href;
+            window.open(`https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent('🎄 ¡Mira esta tarjeta navideña!')}`);
+        }
+
+        function copyLink() {
+            navigator.clipboard.writeText(window.location.href);
+            alert('¡Link copiado! 📋');
+        }
+
+        // ============================================
+        // EFECTOS
+        // ============================================
+        function createSnow() {
+            const container = document.getElementById('snowBg');
+            const snowflakes = ['❄', '❅', '❆', '✻', '✼'];
+
+            for (let i = 0; i < 50; i++) {
+                const flake = document.createElement('div');
+                flake.className = 'snowflake';
+                flake.textContent = snowflakes[Math.floor(Math.random() * snowflakes.length)];
+                flake.style.left = Math.random() * 100 + '%';
+                flake.style.animationDuration = (5 + Math.random() * 10) + 's';
+                flake.style.animationDelay = Math.random() * 5 + 's';
+                flake.style.fontSize = (0.8 + Math.random() * 1.2) + 'rem';
+                container.appendChild(flake);
+            }
+        }
+
+        // ============================================
+        // INICIALIZACIÓN
+        // ============================================
+        document.addEventListener('DOMContentLoaded', () => {
+            createSnow();
+            loadCard();
+        });
+    </script>
+</body>
+
+</html>

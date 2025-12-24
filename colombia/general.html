@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎄 Mensaje Navideño General | Colombia</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <style>
+        .hero {
+            background: linear-gradient(135deg, rgba(252, 209, 22, 0.3), rgba(206, 17, 38, 0.3)),
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.5), var(--dark-bg));
+            min-height: 100vh;
+        }
+
+        .message-banner {
+            border-color: #FCD116;
+            background: linear-gradient(135deg, rgba(252, 209, 22, 0.2), rgba(0, 56, 147, 0.2));
+        }
+
+        .recipient-name {
+            color: #FCD116;
+            text-shadow: 0 0 15px #FCD116;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cable"></div>
+    <div class="christmas-lights"></div>
+    <div class="snowflakes"></div>
+
+    <a href="index.html" class="nav-back">← Volver a Colombia</a>
+
+    <a href="https://agem2024.github.io/SEGURITI-USC/card.html" class="floating-icon floating-icon-left"
+        title="Mi Tarjeta" target="_blank">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="4" width="20" height="16" rx="2" />
+            <circle cx="8" cy="10" r="2" />
+            <path d="M14 8h4M14 12h4M6 16h12" />
+        </svg>
+    </a>
+    <a href="https://agem2024.github.io/SEGURITI-USC/orion-bots.html" class="floating-icon floating-icon-right"
+        title="ORION Tech" target="_blank">
+        <video autoplay muted loop playsinline>
+            <source src="../assets/video/orion_logo.mp4" type="video/mp4">
+        </video>
+    </a>
+
+    <section class="hero">
+        <h1 class="hero-title">🎄 Feliz Navidad</h1>
+        <p class="hero-subtitle" style="color: #FCD116;">Un abrazo colombiano para ti</p>
+
+        <div class="message-banner" style="margin-top: 50px;">
+            <p class="message-text" id="christmasMessage">
+                🕯️ Querido/a <span class="recipient-name" id="recipientNameDisplay">Amigo/a</span>,<br><br>
+                Que el calorcito de la Navidad colombiana llegue hasta donde estés.
+                Que el Día de las Velitas ilumine tu camino y la Novena de Aguinaldos
+                llene tu corazón de paz y esperanza.<br><br>
+                Que nunca falten los buñuelos en tu mesa, la natilla en tu plato
+                y el amor de los tuyos en tu corazón. ¡Feliz Navidad y próspero Año Nuevo! 🇨🇴🎄
+            </p>
+            <div class="name-input-container">
+                <input type="text" id="recipientName" class="name-input" placeholder="Escribe el nombre..."
+                    maxlength="30" style="border-color: #FCD116;">
+                <button class="generate-btn" onclick="updateRecipientName()"
+                    style="background: linear-gradient(45deg, #FCD116, #CE1126);">🎄 Personalizar</button>
+            </div>
+        </div>
+
+        <div class="gender-selector" style="margin-top: 40px;">
+            <a href="mujeres.html" class="gender-btn"><span>👩</span> Ver Para Ella</a>
+            <a href="hombres.html" class="gender-btn"><span>👨</span> Ver Para Él</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>🇨🇴 Con amor desde Colombia 🎄</p>
+    </footer>
+
+    <script src="../assets/js/main.js"></script>
+</body>
+
+</html>

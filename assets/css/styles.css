@@ -1,0 +1,901 @@
+/* ============================================
+   FESTIVIDADES NAVIDEÑAS - ESTILOS GLOBALES
+   Efectos 3D, Verde Neón, Flash Púrpura
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&family=Dancing+Script:wght@700&display=swap');
+
+:root {
+    --neon-green: #39FF14;
+    --purple-flash: #bc13fe;
+    --gold: #FFD700;
+    --red: #FF4444;
+    --dark-bg: #0a0a0a;
+    --card-bg: rgba(20, 20, 20, 0.9);
+    --gradient-colombia: linear-gradient(135deg, #FCD116, #003893, #CE1126);
+    --gradient-usa: linear-gradient(135deg, #B22234, #FFFFFF, #3C3B6E);
+    --gradient-mexico: linear-gradient(135deg, #006847, #FFFFFF, #CE1126);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--dark-bg);
+    color: #fff;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* ============================================
+   EFECTO DE LUCES NAVIDEÑAS 3D
+   ============================================ */
+.christmas-lights {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    z-index: 1000;
+    pointer-events: none;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    padding: 0 20px;
+}
+
+.light-bulb {
+    width: 15px;
+    height: 25px;
+    border-radius: 50% 50% 50% 50%;
+    position: relative;
+    top: -5px;
+    animation: glow 1.5s ease-in-out infinite;
+    box-shadow: 0 0 20px currentColor, 0 0 40px currentColor, 0 0 60px currentColor;
+}
+
+.light-bulb::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 10px;
+    background: #333;
+    border-radius: 3px 3px 0 0;
+}
+
+.light-bulb:nth-child(1) {
+    color: #ff0000;
+    animation-delay: 0s;
+}
+
+.light-bulb:nth-child(2) {
+    color: #00ff00;
+    animation-delay: 0.2s;
+}
+
+.light-bulb:nth-child(3) {
+    color: #0066ff;
+    animation-delay: 0.4s;
+}
+
+.light-bulb:nth-child(4) {
+    color: #ffff00;
+    animation-delay: 0.6s;
+}
+
+.light-bulb:nth-child(5) {
+    color: #ff00ff;
+    animation-delay: 0.8s;
+}
+
+.light-bulb:nth-child(6) {
+    color: #00ffff;
+    animation-delay: 1s;
+}
+
+.light-bulb:nth-child(7) {
+    color: #ff6600;
+    animation-delay: 1.2s;
+}
+
+.light-bulb:nth-child(8) {
+    color: #ff0066;
+    animation-delay: 1.4s;
+}
+
+.light-bulb:nth-child(9) {
+    color: #66ff00;
+    animation-delay: 0.1s;
+}
+
+.light-bulb:nth-child(10) {
+    color: #ff0000;
+    animation-delay: 0.3s;
+}
+
+.light-bulb:nth-child(11) {
+    color: #00ff00;
+    animation-delay: 0.5s;
+}
+
+.light-bulb:nth-child(12) {
+    color: #0066ff;
+    animation-delay: 0.7s;
+}
+
+@keyframes glow {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.4;
+        transform: scale(0.9);
+    }
+}
+
+/* Cable de las luces */
+.cable {
+    position: fixed;
+    top: 12px;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg,
+            transparent 0%,
+            #222 5%,
+            #222 95%,
+            transparent 100%);
+    z-index: 999;
+}
+
+/* ============================================
+   ICONOS FLOTANTES - VERDE NEÓN + FLASH PÚRPURA
+   ============================================ */
+.floating-icon {
+    position: fixed;
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    z-index: 1001;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.floating-icon-left {
+    bottom: 30px;
+    left: 30px;
+    background: rgba(57, 255, 20, 0.1);
+    border: 2px solid var(--neon-green);
+    color: var(--neon-green);
+    box-shadow: 0 0 15px rgba(57, 255, 20, 0.3);
+}
+
+.floating-icon-right {
+    bottom: 30px;
+    right: 30px;
+    background: rgba(188, 19, 254, 0.1);
+    border: 2px solid var(--purple-flash);
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(188, 19, 254, 0.3);
+}
+
+.floating-icon:hover {
+    transform: scale(1.15);
+    box-shadow:
+        0 0 25px var(--neon-green),
+        0 0 50px var(--purple-flash),
+        0 0 75px var(--neon-green);
+    animation: flash-purple 0.5s ease-in-out;
+}
+
+@keyframes flash-purple {
+
+    0%,
+    100% {
+        border-color: var(--neon-green);
+    }
+
+    50% {
+        border-color: var(--purple-flash);
+        background: rgba(188, 19, 254, 0.3);
+    }
+}
+
+.floating-icon svg {
+    width: 28px;
+    height: 28px;
+    filter: drop-shadow(0 0 5px currentColor);
+}
+
+.floating-icon video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+/* ============================================
+   EFECTO DE NIEVE
+   ============================================ */
+.snowflakes {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 998;
+    overflow: hidden;
+}
+
+.snowflake {
+    position: absolute;
+    top: -20px;
+    color: #fff;
+    font-size: 1.2rem;
+    animation: fall linear infinite;
+    opacity: 0.8;
+    text-shadow: 0 0 5px #fff;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-20px) rotate(0deg);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px 40px;
+    text-align: center;
+    position: relative;
+}
+
+.hero-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(3rem, 8vw, 6rem);
+    background: linear-gradient(45deg, var(--gold), #fff, var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+    margin-bottom: 20px;
+    animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+
+    0%,
+    100% {
+        filter: brightness(1);
+    }
+
+    50% {
+        filter: brightness(1.3);
+    }
+}
+
+.hero-subtitle {
+    font-size: 1.3rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 50px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+/* ============================================
+   TARJETAS DE PAÍS
+   ============================================ */
+.countries-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.country-card {
+    position: relative;
+    border-radius: 25px;
+    overflow: hidden;
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.4s ease;
+    cursor: pointer;
+    text-decoration: none;
+    color: #fff;
+}
+
+.country-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.5),
+        0 0 30px rgba(255, 215, 0, 0.2);
+}
+
+.country-card-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.country-card:hover .country-card-image {
+    transform: scale(1.1);
+}
+
+.country-card-content {
+    padding: 25px;
+    position: relative;
+}
+
+.country-flag {
+    font-size: 3rem;
+    position: absolute;
+    top: -40px;
+    right: 20px;
+    filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.5));
+}
+
+.country-name {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.country-tagline {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/* Gradientes específicos por país */
+.country-card.colombia::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--gradient-colombia);
+}
+
+.country-card.usa::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--gradient-usa);
+}
+
+.country-card.mexico::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--gradient-mexico);
+}
+
+/* ============================================
+   BANNERS DE MENSAJE
+   ============================================ */
+.message-banner {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(188, 19, 254, 0.2));
+    border: 2px solid var(--gold);
+    border-radius: 20px;
+    padding: 40px;
+    margin: 40px auto;
+    max-width: 800px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.message-banner::before {
+    content: '✨';
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    font-size: 2rem;
+    animation: sparkle 2s ease-in-out infinite;
+}
+
+.message-banner::after {
+    content: '✨';
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    font-size: 2rem;
+    animation: sparkle 2s ease-in-out infinite 1s;
+}
+
+@keyframes sparkle {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: scale(1.2);
+    }
+}
+
+.message-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    color: var(--gold);
+    line-height: 1.4;
+}
+
+.recipient-name {
+    display: inline-block;
+    color: var(--neon-green);
+    text-shadow: 0 0 10px var(--neon-green);
+    animation: pulse-name 2s ease-in-out infinite;
+}
+
+@keyframes pulse-name {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* ============================================
+   FORMULARIO DE NOMBRE
+   ============================================ */
+.name-input-container {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.name-input {
+    padding: 15px 25px;
+    font-size: 1.1rem;
+    border: 2px solid var(--neon-green);
+    border-radius: 50px;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    outline: none;
+    transition: all 0.3s ease;
+    min-width: 280px;
+}
+
+.name-input:focus {
+    box-shadow: 0 0 20px var(--neon-green);
+}
+
+.name-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.generate-btn {
+    padding: 15px 35px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(45deg, var(--neon-green), var(--purple-flash));
+    color: #000;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.generate-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px var(--purple-flash);
+}
+
+/* ============================================
+   SELECTOR DE GÉNERO DE MENSAJE
+   ============================================ */
+.gender-selector {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin: 30px 0;
+    flex-wrap: wrap;
+}
+
+.gender-btn {
+    padding: 15px 30px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.gender-btn:hover,
+.gender-btn.active {
+    border-color: var(--gold);
+    background: rgba(255, 215, 0, 0.1);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+.gender-btn span {
+    font-size: 1.5rem;
+}
+
+/* ============================================
+   TRADICIONES SECTION
+   ============================================ */
+.traditions-section {
+    padding: 60px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 40px;
+    color: var(--gold);
+}
+
+.traditions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.tradition-card {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.tradition-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--gold);
+}
+
+.tradition-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+.tradition-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--gold);
+}
+
+.tradition-desc {
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+}
+
+/* ============================================
+   NAVEGACIÓN
+   ============================================ */
+.nav-back {
+    position: fixed;
+    top: 80px;
+    left: 20px;
+    padding: 12px 25px;
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid var(--neon-green);
+    border-radius: 50px;
+    color: var(--neon-green);
+    text-decoration: none;
+    font-size: 0.9rem;
+    z-index: 1002;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-back:hover {
+    background: var(--neon-green);
+    color: #000;
+    box-shadow: 0 0 20px var(--neon-green);
+}
+
+/* ============================================
+   AUDIO PLAYER
+   ============================================ */
+.audio-toggle {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid var(--gold);
+    color: var(--gold);
+    cursor: pointer;
+    z-index: 1002;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.audio-toggle:hover {
+    background: var(--gold);
+    color: #000;
+    box-shadow: 0 0 20px var(--gold);
+}
+
+.audio-toggle.muted {
+    border-color: #666;
+    color: #666;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.footer {
+    text-align: center;
+    padding: 40px 20px;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+}
+
+.footer a {
+    color: var(--gold);
+    text-decoration: none;
+}
+
+/* ============================================
+   ORNAMENTOS FLOTANTES 3D
+   ============================================ */
+.floating-ornaments {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 997;
+    overflow: hidden;
+}
+
+.floating-ornament {
+    pointer-events: auto;
+    z-index: 998;
+}
+
+@keyframes floatOrnament {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg) scale(1);
+    }
+
+    25% {
+        transform: translateY(-20px) rotate(15deg) scale(1.1);
+    }
+
+    50% {
+        transform: translateY(-40px) rotate(-10deg) scale(1);
+    }
+
+    75% {
+        transform: translateY(-20px) rotate(10deg) scale(1.05);
+    }
+}
+
+/* ============================================
+   PARTÍCULAS DORADAS BRILLANTES
+   ============================================ */
+.golden-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 996;
+    overflow: hidden;
+}
+
+@keyframes sparkleFloat {
+
+    0%,
+    100% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-20px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* ============================================
+   ANIMACIONES MEJORADAS
+   ============================================ */
+@keyframes slideInRight {
+    from {
+        transform: translateX(100px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOutRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateX(100px);
+        opacity: 0;
+    }
+}
+
+/* Efecto de brillo en hover para tarjetas */
+.country-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 215, 0, 0.2),
+            transparent);
+    transition: left 0.5s ease;
+    z-index: 1;
+}
+
+.country-card:hover::before {
+    left: 100%;
+}
+
+/* Mejora del botón de audio */
+.audio-toggle {
+    animation: pulseAudio 2s ease-in-out infinite;
+}
+
+@keyframes pulseAudio {
+
+    0%,
+    100% {
+        box-shadow: 0 0 10px var(--gold);
+    }
+
+    50% {
+        box-shadow: 0 0 25px var(--gold), 0 0 40px rgba(255, 215, 0, 0.5);
+    }
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+    .floating-icon {
+        width: 45px;
+        height: 45px;
+    }
+
+    .floating-icon-left {
+        left: 15px;
+        bottom: 20px;
+    }
+
+    .floating-icon-right {
+        right: 15px;
+        bottom: 20px;
+    }
+
+    .hero-title {
+        font-size: 2.8rem;
+    }
+
+    .countries-grid {
+        padding: 15px;
+        gap: 20px;
+    }
+
+    .country-card-image {
+        height: 200px;
+    }
+
+    .message-banner {
+        padding: 25px;
+        margin: 20px;
+    }
+
+    .name-input {
+        min-width: 100%;
+    }
+
+    .christmas-lights {
+        height: 40px;
+    }
+
+    .light-bulb {
+        width: 10px;
+        height: 18px;
+    }
+}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💐 Mensaje Navideño para Ella | Colombia</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <style>
+        .hero {
+            background: linear-gradient(135deg, rgba(255, 105, 180, 0.3), rgba(188, 19, 254, 0.3)),
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.5), var(--dark-bg));
+            min-height: 100vh;
+        }
+
+        .message-banner {
+            border-color: #FF69B4;
+            background: linear-gradient(135deg, rgba(255, 105, 180, 0.2), rgba(188, 19, 254, 0.2));
+        }
+
+        .recipient-name {
+            color: #FF69B4;
+            text-shadow: 0 0 15px #FF69B4;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cable"></div>
+    <div class="christmas-lights"></div>
+    <div class="snowflakes"></div>
+
+    <a href="index.html" class="nav-back">← Volver a Colombia</a>
+
+    <a href="https://agem2024.github.io/SEGURITI-USC/card.html" class="floating-icon floating-icon-left"
+        title="Mi Tarjeta" target="_blank">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="4" width="20" height="16" rx="2" />
+            <circle cx="8" cy="10" r="2" />
+            <path d="M14 8h4M14 12h4M6 16h12" />
+        </svg>
+    </a>
+    <a href="https://agem2024.github.io/SEGURITI-USC/orion-bots.html" class="floating-icon floating-icon-right"
+        title="ORION Tech" target="_blank">
+        <video autoplay muted loop playsinline>
+            <source src="../assets/video/orion_logo.mp4" type="video/mp4">
+        </video>
+    </a>
+
+    <section class="hero">
+        <h1 class="hero-title">💐 Para Ella</h1>
+        <p class="hero-subtitle" style="color: #FF69B4;">Un mensaje especial desde Colombia</p>
+
+        <div class="message-banner" style="margin-top: 50px;">
+            <p class="message-text" id="christmasMessage">
+                🌸 Querida <span class="recipient-name" id="recipientNameDisplay">Reina</span>,<br><br>
+                Eres la luz que ilumina más que todas las velitas del Día de las Velitas juntas.
+                Que esta Navidad te traiga toda la felicidad que mereces, porque tú mereces el mundo entero.<br><br>
+                Que el Niño Jesús bendiga cada paso que des y que el nuevo año
+                te colme de amor, salud y éxitos. ¡Eres increíble! 💖
+            </p>
+            <div class="name-input-container">
+                <input type="text" id="recipientName" class="name-input" placeholder="Escribe su nombre..."
+                    maxlength="30" style="border-color: #FF69B4;">
+                <button class="generate-btn" onclick="updateRecipientName()"
+                    style="background: linear-gradient(45deg, #FF69B4, #bc13fe);">💐 Personalizar</button>
+            </div>
+        </div>
+
+        <div class="gender-selector" style="margin-top: 40px;">
+            <a href="hombres.html" class="gender-btn"><span>👨</span> Ver Para Él</a>
+            <a href="general.html" class="gender-btn"><span>🎄</span> Ver General</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>💖 Con amor desde Colombia 🇨🇴</p>
+    </footer>
+
+    <script src="../assets/js/main.js"></script>
+</body>
+
+</html>

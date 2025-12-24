@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🇲🇽 Navidad en México | Crea tu Tarjeta</title>
+    <meta name="description" content="Crea y envía tarjetas navideñas personalizadas con las tradiciones mexicanas.">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🇲🇽</text></svg>">
+    <style>
+        .hero {
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), var(--dark-bg)), url('../assets/images/mexico_christmas.png') center/cover;
+        }
+
+        .country-accent {
+            color: #CE1126;
+        }
+
+        .card-creator {
+            background: rgba(20, 20, 20, 0.95);
+            border: 2px solid #006847;
+            border-radius: 25px;
+            padding: 40px;
+            max-width: 600px;
+            margin: 40px auto;
+            backdrop-filter: blur(10px);
+        }
+
+        .creator-title {
+            font-size: 1.8rem;
+            color: #CE1126;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            color: #fff;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .form-input,
+        .form-select {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: #006847;
+            box-shadow: 0 0 15px rgba(0, 104, 71, 0.3);
+        }
+
+        .form-select option {
+            background: #1a1a1a;
+            color: #fff;
+        }
+
+        .create-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(45deg, #006847, #CE1126);
+            border: none;
+            border-radius: 15px;
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .create-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 30px rgba(0, 104, 71, 0.5);
+        }
+
+        .generated-url {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #39FF14;
+            border-radius: 10px;
+            background: rgba(57, 255, 20, 0.1);
+            color: #39FF14;
+            font-size: 0.85rem;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .share-buttons {
+            display: none;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .share-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .share-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .share-whatsapp {
+            background: #25D366;
+            color: #fff;
+        }
+
+        .share-telegram {
+            background: #0088cc;
+            color: #fff;
+        }
+
+        .share-email {
+            background: #EA4335;
+            color: #fff;
+        }
+
+        .share-copy {
+            background: linear-gradient(45deg, #39FF14, #bc13fe);
+            color: #000;
+        }
+
+        .message-preview {
+            background: rgba(206, 17, 38, 0.1);
+            border: 1px solid #CE1126;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+            text-align: center;
+            color: #fff;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .receiver-card {
+            background: linear-gradient(135deg, rgba(0, 104, 71, 0.1), rgba(206, 17, 38, 0.1));
+            border: 3px solid #006847;
+            border-radius: 30px;
+            padding: 50px;
+            max-width: 700px;
+            margin: 40px auto;
+            text-align: center;
+        }
+
+        .receiver-name {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: #CE1126;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(206, 17, 38, 0.5);
+        }
+
+        .receiver-message {
+            font-size: 1.4rem;
+            line-height: 1.8;
+            color: #fff;
+            margin-bottom: 30px;
+        }
+
+        .receiver-footer {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        #musicPlayer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cable"></div>
+    <div class="christmas-lights"></div>
+    <div class="snowflakes"></div>
+    <a href="../index.html" class="nav-back">← Volver al Inicio</a>
+    <a href="https://agem2024.github.io/SEGURITI-USC/card.html" class="floating-icon floating-icon-left"
+        title="Mi Tarjeta" target="_blank">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="4" width="20" height="16" rx="2" />
+            <circle cx="8" cy="10" r="2" />
+            <path d="M14 8h4M14 12h4M6 16h12" />
+        </svg>
+    </a>
+    <a href="https://agem2024.github.io/SEGURITI-USC/orion-bots.html" class="floating-icon floating-icon-right"
+        title="ORION Tech" target="_blank">
+        <video autoplay muted loop playsinline>
+            <source src="../assets/video/orion_logo.mp4" type="video/mp4">
+        </video>
+    </a>
+    <button class="audio-toggle" id="audioToggle" onclick="toggleMusic()">🎵</button>
+
+    <section class="hero" style="min-height: 60vh; padding-top: 100px;">
+        <h1 class="hero-title">🇲🇽 Navidad Mexicana</h1>
+        <p class="hero-subtitle country-accent">Crea y envía tarjetas personalizadas</p>
+    </section>
+
+    <div id="creatorSection">
+        <div class="card-creator">
+            <h2 class="creator-title">🎄 Crea tu Tarjeta Navideña</h2>
+
+            <div class="form-group">
+                <label class="form-label">👤 Nombre del destinatario</label>
+                <input type="text" id="cardName" class="form-input" placeholder="Ej: Lupita, José, Abuelita..."
+                    maxlength="30">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">🎭 Tipo de mensaje</label>
+                <select id="cardTheme" class="form-select">
+                    <option value="familiar">👨‍👩‍👧‍👦 Familiar - Cálido y emotivo</option>
+                    <option value="comico">😂 Cómico - Divertido y alegre</option>
+                    <option value="amoroso">❤️ Amoroso - Romántico y especial</option>
+                    <option value="motivacional">💪 Motivacional - Inspirador y fuerte</option>
+                    <option value="espiritual">🙏 Espiritual - Fe y bendiciones</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">👫 ¿Para quién es?</label>
+                <select id="cardGender" class="form-select">
+                    <option value="general">🎄 General - Para cualquier persona</option>
+                    <option value="mujer">👩 Para ella</option>
+                    <option value="hombre">👨 Para él</option>
+                </select>
+            </div>
+
+            <button class="create-btn" onclick="createCard()">🎁 Crear Tarjeta Personalizada</button>
+            <div id="messagePreview" class="message-preview"></div>
+            <input type="text" id="generatedURL" class="generated-url" readonly>
+            <div id="shareButtons" class="share-buttons">
+                <button class="share-btn share-whatsapp" onclick="shareWhatsApp()">📱 WhatsApp</button>
+                <button class="share-btn share-telegram" onclick="shareTelegram()">✈️ Telegram</button>
+                <button class="share-btn share-email" onclick="shareEmail()">📧 Email</button>
+                <button class="share-btn share-copy" onclick="copyCardLink()">📋 Copiar Link</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="receiverSection" style="display: none;">
+        <div class="receiver-card">
+            <div class="receiver-name">✨ <span id="recipientNameDisplay">Amigo/a</span> ✨</div>
+            <div class="receiver-message" id="christmasMessage">¡Que esta Navidad llene tu vida de bendiciones!</div>
+            <div class="receiver-footer">🇲🇽 Con amor desde México 🎄</div>
+        </div>
+    </div>
+
+    <section class="traditions-section">
+        <h2 class="section-title country-accent">🎄 Tradiciones Mexicanas</h2>
+        <div class="traditions-grid">
+            <div class="tradition-card">
+                <div class="tradition-icon">🕯️</div>
+                <h3 class="tradition-title">Las Posadas</h3>
+                <p class="tradition-desc">Del 16 al 24: procesiones, cantos y piñatas cada noche.</p>
+            </div>
+            <div class="tradition-card">
+                <div class="tradition-icon">⭐</div>
+                <h3 class="tradition-title">Piñatas</h3>
+                <p class="tradition-desc">La estrella de 7 picos representa los 7 pecados capitales.</p>
+            </div>
+            <div class="tradition-card">
+                <div class="tradition-icon">🌺</div>
+                <h3 class="tradition-title">Nochebuena</h3>
+                <p class="tradition-desc">La flor de Nochebuena es originaria de México.</p>
+            </div>
+            <div class="tradition-card">
+                <div class="tradition-icon">🫔</div>
+                <h3 class="tradition-title">Tamales</h3>
+                <p class="tradition-desc">Cada familia tiene su receta secreta de tamales.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>🇲🇽 Hecho con amor desde México 🎄</p>
+        <p style="margin-top: 10px;"><a href="https://agem2024.github.io/SEGURITI-USC/orion-bots.html"
+                target="_blank">Powered by ORION Tech</a></p>
+    </footer>
+    <div id="musicPlayer"></div>
+    <script src="../assets/js/main.js"></script>
+</body>
+
+</html>

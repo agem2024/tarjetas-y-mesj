@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎄 Festividades Navideñas | Colombia • USA • México</title>
+    <meta name="description"
+        content="Celebra la Navidad con las tradiciones más hermosas de Colombia, Estados Unidos y México. Mensajes personalizados, música festiva y mucho más.">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎄</text></svg>">
+</head>
+
+<body>
+
+    <!-- Cable de luces -->
+    <div class="cable"></div>
+
+    <!-- Luces navideñas 3D -->
+    <div class="christmas-lights"></div>
+
+    <!-- Efecto de nieve -->
+    <div class="snowflakes"></div>
+
+    <!-- Icono flotante izquierdo - Tarjeta Personal -->
+    <a href="https://agem2024.github.io/SEGURITI-USC/card.html" class="floating-icon floating-icon-left"
+        title="Mi Tarjeta Personal" target="_blank">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="4" width="20" height="16" rx="2" />
+            <circle cx="8" cy="10" r="2" />
+            <path d="M14 8h4M14 12h4M6 16h12" />
+        </svg>
+    </a>
+
+    <!-- Icono flotante derecho - ORION Tech (Video) -->
+    <a href="https://agem2024.github.io/SEGURITI-USC/orion-bots.html" class="floating-icon floating-icon-right"
+        title="ORION Tech" target="_blank">
+        <video autoplay muted loop playsinline>
+            <source src="assets/video/orion_logo.mp4" type="video/mp4">
+        </video>
+    </a>
+
+    <!-- Control de Audio con música real -->
+    <button class="audio-toggle" id="audioToggle" title="🎵 Música Navideña" onclick="toggleMusic()">🎵</button>
+
+    <!-- Reproductor de música embebido (oculto) -->
+    <div id="musicPlayer" style="display:none;"></div>
+
+    <!-- Ornamentos navideños flotantes 3D -->
+    <div class="floating-ornaments" id="floatingOrnaments"></div>
+
+    <!-- Partículas brillantes doradas -->
+    <div class="golden-particles" id="goldenParticles"></div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1 class="hero-title">¡Feliz Navidad!</h1>
+        <p class="hero-subtitle">Celebra con las tradiciones más hermosas</p>
+
+        <!-- Selector de países -->
+        <div class="countries-grid">
+
+            <!-- Colombia -->
+            <a href="colombia/index.html" class="country-card colombia">
+                <img src="assets/images/colombia_christmas.png" alt="Navidad en Colombia" class="country-card-image">
+                <div class="country-card-content">
+                    <span class="country-flag">🇨🇴</span>
+                    <h2 class="country-name">Colombia</h2>
+                    <p class="country-tagline">Día de las Velitas, Novena de Aguinaldos, buñuelos, natilla y el calor de
+                        nuestra gente</p>
+                </div>
+            </a>
+
+            <!-- USA -->
+            <a href="usa/index.html" class="country-card usa">
+                <img src="assets/images/usa_christmas.png" alt="Christmas in USA" class="country-card-image">
+                <div class="country-card-content">
+                    <span class="country-flag">🇺🇸</span>
+                    <h2 class="country-name">United States</h2>
+                    <p class="country-tagline">Christmas trees, Santa Claus, eggnog, gingerbread houses, and the magic
+                        of winter wonderland</p>
+                </div>
+            </a>
+
+            <!-- México -->
+            <a href="mexico/index.html" class="country-card mexico">
+                <img src="assets/images/mexico_christmas.png" alt="Navidad en México" class="country-card-image">
+                <div class="country-card-content">
+                    <span class="country-flag">🇲🇽</span>
+                    <h2 class="country-name">México</h2>
+                    <p class="country-tagline">Las Posadas, piñatas, ponche caliente, tamales y la alegría de nuestra
+                        cultura</p>
+                </div>
+            </a>
+
+        </div>
+
+        <!-- Banner de mensaje rápido -->
+        <div class="message-banner">
+            <p class="message-text">
+                ✨ Querido/a <span class="recipient-name" id="recipientNameDisplay">Amigo/a</span>,
+                <br>que esta Navidad llene tu vida de bendiciones ✨
+            </p>
+            <div class="name-input-container">
+                <input type="text" id="recipientName" class="name-input"
+                    placeholder="Escribe el nombre del destinatario..." maxlength="30">
+                <button class="generate-btn" onclick="updateRecipientName()">
+                    🎁 Personalizar
+                </button>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Hecho con ❤️ y espíritu navideño 🎄</p>
+        <p style="margin-top: 10px;">
+            <a href="https://agem2024.github.io/SEGURITI-USC/orion-bots.html" target="_blank">
+                Powered by ORION Tech
+            </a>
+        </p>
+    </footer>
+
+    <!-- Sistema de música navideña con YouTube -->
+    <script>
+        // Música navideña automática al cargar
+        document.addEventListener('DOMContentLoaded', function () {
+            // Crear reproductor de YouTube embebido
+            const musicPlayer = document.getElementById('musicPlayer');
+            musicPlayer.innerHTML = `
+                <iframe 
+                    id="youtubePlayer"
+                    width="0" 
+                    height="0" 
+                    src="https://www.youtube.com/embed/aAkMkVFwAoo?autoplay=1&loop=1&playlist=aAkMkVFwAoo" 
+                    frameborder="0" 
+                    allow="autoplay; encrypted-media" 
+                    style="position: fixed; bottom: -100px; opacity: 0; pointer-events: none;">
+                </iframe>
+            `;
+
+            // Mostrar notificación de música
+            setTimeout(() => {
+                showMusicToast('🎵 ¡Música navideña activa! Haz clic en 🎵 para pausar');
+            }, 2000);
+        });
+
+        let musicPlaying = true;
+
+        function toggleMusic() {
+            const player = document.getElementById('youtubePlayer');
+            const toggle = document.getElementById('audioToggle');
+
+            if (musicPlaying) {
+                if (player) player.src = '';
+                toggle.textContent = '🔇';
+                toggle.title = 'Activar música';
+                musicPlaying = false;
+                showMusicToast('🔇 Música pausada');
+            } else {
+                if (player) {
+                    player.src = 'https://www.youtube.com/embed/aAkMkVFwAoo?autoplay=1&loop=1&playlist=aAkMkVFwAoo';
+                }
+                toggle.textContent = '🎵';
+                toggle.title = 'Pausar música';
+                musicPlaying = true;
+                showMusicToast('🎵 ¡Música navideña activa!');
+            }
+        }
+
+        function showMusicToast(message) {
+            // Remover toast anterior si existe
+            const oldToast = document.querySelector('.music-toast');
+            if (oldToast) oldToast.remove();
+
+            const toast = document.createElement('div');
+            toast.className = 'music-toast';
+            toast.textContent = message;
+            toast.style.cssText = `
+                position: fixed;
+                top: 140px;
+                right: 20px;
+                background: linear-gradient(135deg, rgba(255, 215, 0, 0.9), rgba(188, 19, 254, 0.9));
+                color: #000;
+                padding: 12px 20px;
+                border-radius: 25px;
+                font-weight: bold;
+                font-size: 0.9rem;
+                z-index: 10001;
+                animation: slideInRight 0.5s ease, fadeOutRight 0.5s ease 3s forwards;
+                box-shadow: 0 5px 25px rgba(255, 215, 0, 0.5);
+            `;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3500);
+        }
+
+        // Crear ornamentos flotantes 3D
+        function createFloatingOrnaments() {
+            const container = document.getElementById('floatingOrnaments');
+            if (!container) return;
+
+            const ornaments = ['🎄', '🎅', '🎁', '⭐', '🔔', '🦌', '☃️', '🎀', '🪅', '✨'];
+
+            for (let i = 0; i < 20; i++) {
+                const ornament = document.createElement('div');
+                ornament.className = 'floating-ornament';
+                ornament.textContent = ornaments[Math.floor(Math.random() * ornaments.length)];
+                ornament.style.cssText = `
+                    position: absolute;
+                    font-size: ${1.5 + Math.random() * 2}rem;
+                    left: ${Math.random() * 100}%;
+                    top: ${Math.random() * 100}%;
+                    animation: floatOrnament ${10 + Math.random() * 15}s ease-in-out infinite;
+                    animation-delay: ${Math.random() * 5}s;
+                    opacity: 0.7;
+                    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+                    cursor: pointer;
+                    transition: transform 0.3s ease;
+                `;
+                ornament.addEventListener('click', function () {
+                    this.style.transform = 'scale(1.5) rotate(360deg)';
+                    setTimeout(() => this.style.transform = '', 500);
+                });
+                container.appendChild(ornament);
+            }
+        }
+
+        // Crear partículas doradas brillantes
+        function createGoldenParticles() {
+            const container = document.getElementById('goldenParticles');
+            if (!container) return;
+
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'golden-particle';
+                particle.style.cssText = `
+                    position: absolute;
+                    width: ${3 + Math.random() * 5}px;
+                    height: ${3 + Math.random() * 5}px;
+                    background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700);
+                    border-radius: 50%;
+                    left: ${Math.random() * 100}%;
+                    animation: sparkleFloat ${5 + Math.random() * 10}s ease-in-out infinite;
+                    animation-delay: ${Math.random() * 5}s;
+                    box-shadow: 0 0 15px #FFD700, 0 0 30px #FFD700;
+                `;
+                container.appendChild(particle);
+            }
+        }
+
+        // Inicializar efectos al cargar
+        document.addEventListener('DOMContentLoaded', function () {
+            createFloatingOrnaments();
+            createGoldenParticles();
+        });
+    </script>
+
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>

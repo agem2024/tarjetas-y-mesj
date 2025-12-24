@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🇨🇴 Navidad en Colombia | Crea tu Tarjeta</title>
+    <meta name="description" content="Crea y envía tarjetas navideñas personalizadas con las tradiciones colombianas.">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🇨🇴</text></svg>">
+    <style>
+        .hero {
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), var(--dark-bg)), url('../assets/images/colombia_christmas.png') center/cover;
+        }
+
+        .country-accent {
+            color: #FCD116;
+        }
+
+        /* Estilos del creador de tarjetas */
+        .card-creator {
+            background: rgba(20, 20, 20, 0.95);
+            border: 2px solid #FCD116;
+            border-radius: 25px;
+            padding: 40px;
+            max-width: 600px;
+            margin: 40px auto;
+            backdrop-filter: blur(10px);
+        }
+
+        .creator-title {
+            font-size: 1.8rem;
+            color: #FCD116;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            color: #fff;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .form-input,
+        .form-select {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: #FCD116;
+            box-shadow: 0 0 15px rgba(252, 209, 22, 0.3);
+        }
+
+        .form-select option {
+            background: #1a1a1a;
+            color: #fff;
+        }
+
+        .create-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(45deg, #FCD116, #CE1126);
+            border: none;
+            border-radius: 15px;
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .create-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 30px rgba(252, 209, 22, 0.5);
+        }
+
+        /* URL generada */
+        .generated-url {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #39FF14;
+            border-radius: 10px;
+            background: rgba(57, 255, 20, 0.1);
+            color: #39FF14;
+            font-size: 0.85rem;
+            margin-top: 20px;
+            display: none;
+        }
+
+        /* Botones de compartir */
+        .share-buttons {
+            display: none;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .share-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .share-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .share-whatsapp {
+            background: #25D366;
+            color: #fff;
+        }
+
+        .share-telegram {
+            background: #0088cc;
+            color: #fff;
+        }
+
+        .share-email {
+            background: #EA4335;
+            color: #fff;
+        }
+
+        .share-copy {
+            background: linear-gradient(45deg, #39FF14, #bc13fe);
+            color: #000;
+        }
+
+        /* Preview del mensaje */
+        .message-preview {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid #FFD700;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+            text-align: center;
+            color: #FFD700;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* Tarjeta para receptor (cuando abre el link) */
+        .receiver-card {
+            background: linear-gradient(135deg, rgba(252, 209, 22, 0.1), rgba(206, 17, 38, 0.1));
+            border: 3px solid #FCD116;
+            border-radius: 30px;
+            padding: 50px;
+            max-width: 700px;
+            margin: 40px auto;
+            text-align: center;
+        }
+
+        .receiver-name {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: #FCD116;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(252, 209, 22, 0.5);
+        }
+
+        .receiver-message {
+            font-size: 1.4rem;
+            line-height: 1.8;
+            color: #fff;
+            margin-bottom: 30px;
+        }
+
+        .receiver-footer {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        /* Reproductor de música */
+        #musicPlayer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        /* ============================================
+           ESTILOS DE IA - Switch y opciones
+           ============================================ */
+
+        /* Switch de proveedor de IA */
+        .ai-switch-container {
+            margin-bottom: 25px;
+        }
+
+        .ai-switch {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .ai-option {
+            flex: 1;
+            padding: 15px 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .ai-option:hover {
+            border-color: rgba(255, 215, 0, 0.5);
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        .ai-option.active {
+            border-color: #FFD700;
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.2), rgba(188, 19, 254, 0.2));
+            color: #FFD700;
+            font-weight: bold;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .ai-icon {
+            font-size: 1.3rem;
+        }
+
+        /* Textarea para contexto */
+        .form-textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-hint {
+            display: block;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+            margin-top: 5px;
+        }
+
+        /* Checkboxes de IA */
+        .ai-options {
+            margin: 25px 0;
+            padding: 20px;
+            background: rgba(255, 215, 0, 0.05);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 15px;
+        }
+
+        .ai-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #fff;
+            cursor: pointer;
+            padding: 10px 0;
+            transition: all 0.3s ease;
+        }
+
+        .ai-checkbox:hover {
+            color: #FFD700;
+        }
+
+        .ai-checkbox input[type="checkbox"] {
+            width: 22px;
+            height: 22px;
+            accent-color: #FFD700;
+            cursor: pointer;
+        }
+
+        /* Input de archivo */
+        input[type="file"].form-input {
+            padding: 12px;
+            cursor: pointer;
+        }
+
+        input[type="file"].form-input::file-selector-button {
+            background: linear-gradient(45deg, #FCD116, #CE1126);
+            border: none;
+            border-radius: 10px;
+            padding: 10px 20px;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            margin-right: 15px;
+            transition: all 0.3s ease;
+        }
+
+        input[type="file"].form-input::file-selector-button:hover {
+            transform: scale(1.02);
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="cable"></div>
+    <div class="christmas-lights"></div>
+    <div class="snowflakes"></div>
+
+    <a href="../index.html" class="nav-back">← Volver al Inicio</a>
+
+    <a href="https://agem2024.github.io/SEGURITI-USC/card.html" class="floating-icon floating-icon-left"
+        title="Mi Tarjeta" target="_blank">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="4" width="20" height="16" rx="2" />
+            <circle cx="8" cy="10" r="2" />
+            <path d="M14 8h4M14 12h4M6 16h12" />
+        </svg>
+    </a>
+    <a href="https://agem2024.github.io/SEGURITI-USC/orion-bots.html" class="floating-icon floating-icon-right"
+        title="ORION Tech" target="_blank">
+        <video autoplay muted loop playsinline>
+            <source src="../assets/video/orion_logo.mp4" type="video/mp4">
+        </video>
+    </a>
+
+    <button class="audio-toggle" id="audioToggle" onclick="toggleMusic()">🎵</button>
+
+    <section class="hero" style="min-height: 60vh; padding-top: 100px;">
+        <h1 class="hero-title">🇨🇴 Navidad Colombiana</h1>
+        <p class="hero-subtitle country-accent">Crea y envía tarjetas personalizadas</p>
+    </section>
+
+    <!-- SECCIÓN CREADOR (visible solo si no hay nombre en URL) -->
+    <div id="creatorSection">
+        <div class="card-creator">
+            <h2 class="creator-title">🎄 Crea tu Tarjeta Navideña con IA</h2>
+
+            <!-- Switch de proveedor de IA -->
+            <div class="form-group ai-switch-container">
+                <label class="form-label">🤖 Motor de IA</label>
+                <div class="ai-switch">
+                    <button type="button" class="ai-option active" data-provider="gemini"
+                        onclick="setAIProvider('gemini')">
+                        <span class="ai-icon">💎</span> Gemini
+                    </button>
+                    <button type="button" class="ai-option" data-provider="openai" onclick="setAIProvider('openai')">
+                        <span class="ai-icon">🧠</span> OpenAI
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">👤 Nombre del destinatario</label>
+                <input type="text" id="cardName" class="form-input" placeholder="Ej: María, Juan Carlos, Mamá..."
+                    maxlength="30">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">✍️ Tu nombre (remitente)</label>
+                <input type="text" id="senderName" class="form-input" placeholder="Ej: Tu familia, Alex, Con cariño..."
+                    maxlength="50">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">🎭 Tipo de mensaje</label>
+                <select id="cardTheme" class="form-select">
+                    <option value="familiar">👨‍👩‍👧‍👦 Familiar - Cálido y emotivo</option>
+                    <option value="comico">😂 Cómico - Divertido y alegre</option>
+                    <option value="amoroso">❤️ Amoroso - Romántico y especial</option>
+                    <option value="motivacional">💪 Motivacional - Inspirador y fuerte</option>
+                    <option value="espiritual">🙏 Espiritual - Fe y bendiciones</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">👫 ¿Para quién es?</label>
+                <select id="cardGender" class="form-select">
+                    <option value="general">🎄 General - Para cualquier persona</option>
+                    <option value="mujer">👩 Para ella</option>
+                    <option value="hombre">👨 Para él</option>
+                </select>
+            </div>
+
+            <!-- Campo de contexto para IA -->
+            <div class="form-group">
+                <label class="form-label">💭 Contexto adicional (opcional)</label>
+                <textarea id="cardContext" class="form-input form-textarea" rows="3"
+                    placeholder="Ej: Es mi abuela de 80 años que vive en Medellín, ama cocinar buñuelos..."></textarea>
+                <small class="form-hint">La IA usará esto para hacer el mensaje más personal</small>
+            </div>
+
+            <!-- Opciones de IA -->
+            <div class="ai-options">
+                <label class="ai-checkbox">
+                    <input type="checkbox" id="useAI" checked>
+                    <span class="checkmark"></span>
+                    ✨ Generar mensaje único con IA
+                </label>
+                <label class="ai-checkbox">
+                    <input type="checkbox" id="generateImage">
+                    <span class="checkmark"></span>
+                    🎨 Generar imagen navideña con IA (DALL-E)
+                </label>
+            </div>
+
+            <!-- Upload de archivos -->
+            <div class="form-group">
+                <label class="form-label">📎 Adjuntar archivo (opcional)</label>
+                <input type="file" id="cardAttachment" class="form-input" accept="image/*,video/*">
+                <small class="form-hint">Imagen o video para incluir en la tarjeta</small>
+            </div>
+
+            <button class="create-btn" onclick="createAICard()">
+                🎁 Crear Tarjeta con IA
+            </button>
+
+            <!-- Preview del mensaje -->
+            <div id="messagePreview" class="message-preview"></div>
+
+            <!-- URL generada -->
+            <input type="text" id="generatedURL" class="generated-url" readonly>
+
+            <!-- Botones de compartir -->
+            <div id="shareButtons" class="share-buttons">
+                <button class="share-btn share-whatsapp" onclick="shareWhatsApp()">📱 WhatsApp</button>
+                <button class="share-btn share-telegram" onclick="shareTelegram()">✈️ Telegram</button>
+                <button class="share-btn share-email" onclick="shareEmail()">📧 Email</button>
+                <button class="share-btn share-copy" onclick="copyCardLink()">📋 Copiar Link</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- SECCIÓN RECEPTOR (visible cuando se abre con nombre en URL) -->
+    <div id="receiverSection" style="display: none;">
+        <div class="receiver-card">
+            <div class="receiver-name">
+                ✨ <span id="recipientNameDisplay">Amigo/a</span> ✨
+            </div>
+            <div class="receiver-message" id="christmasMessage">
+                ¡Que esta Navidad llene tu vida de bendiciones!
+            </div>
+            <div class="receiver-footer">
+                🇨🇴 Con amor desde Colombia 🎄
+            </div>
+        </div>
+    </div>
+
+    <!-- Tradiciones (siempre visible) -->
+    <section class="traditions-section">
+        <h2 class="section-title country-accent">🎄 Tradiciones Colombianas</h2>
+        <div class="traditions-grid">
+            <div class="tradition-card">
+                <div class="tradition-icon">🕯️</div>
+                <h3 class="tradition-title">Día de las Velitas</h3>
+                <p class="tradition-desc">Cada 7 de diciembre, Colombia se ilumina con miles de velas y farolitos.</p>
+            </div>
+            <div class="tradition-card">
+                <div class="tradition-icon">📿</div>
+                <h3 class="tradition-title">Novena de Aguinaldos</h3>
+                <p class="tradition-desc">Del 16 al 24: familia, villancicos y comida tradicional cada noche.</p>
+            </div>
+            <div class="tradition-card">
+                <div class="tradition-icon">🧁</div>
+                <h3 class="tradition-title">Buñuelos y Natilla</h3>
+                <p class="tradition-desc">El combo perfecto para las noches decembrinas colombianas.</p>
+            </div>
+            <div class="tradition-card">
+                <div class="tradition-icon">🎆</div>
+                <h3 class="tradition-title">Luces de Medellín</h3>
+                <p class="tradition-desc">El alumbrado más famoso de Latinoamérica ilumina la ciudad.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>🇨🇴 Hecho con amor desde Colombia 🎄</p>
+        <p style="margin-top: 10px;"><a href="https://agem2024.github.io/SEGURITI-USC/orion-bots.html"
+                target="_blank">Powered by ORION Tech</a></p>
+    </footer>
+
+    <!-- Reproductor de música (invisible) -->
+    <div id="musicPlayer"></div>
+
+    <!-- Scripts de IA -->
+    <script src="../assets/js/ai-generator.js"></script>
+    <script src="../assets/js/main.js"></script>
+
+    <script>
+        // ============================================
+        // FUNCIONES DE IA PARA CREAR TARJETAS
+        // ============================================
+
+        function setAIProvider(provider) {
+            // Actualizar UI
+            document.querySelectorAll('.ai-option').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-provider="${provider}"]`).classList.add('active');
+
+            // Actualizar generador
+            if (window.aiCardGenerator) {
+                window.aiCardGenerator.setProvider(provider);
+            }
+
+            console.log(`🤖 Proveedor cambiado a: ${provider}`);
+        }
+
+        async function createAICard() {
+            const nombre = document.getElementById('cardName')?.value?.trim();
+            const remitente = document.getElementById('senderName')?.value?.trim() || 'Un ser querido';
+            const tema = document.getElementById('cardTheme')?.value || 'familiar';
+            const genero = document.getElementById('cardGender')?.value || 'general';
+            const contexto = document.getElementById('cardContext')?.value?.trim() || '';
+            const useAI = document.getElementById('useAI')?.checked;
+            const generateImage = document.getElementById('generateImage')?.checked;
+            const attachment = document.getElementById('cardAttachment')?.files[0];
+
+            if (!nombre) {
+                alert('¡Por favor escribe un nombre para la tarjeta!');
+                return;
+            }
+
+            let mensaje = '';
+            let imageUrl = '';
+            let attachments = [];
+
+            // Generar mensaje con IA o usar predefinido
+            if (useAI && window.aiCardGenerator) {
+                mensaje = await window.aiCardGenerator.generateMessage({
+                    nombre,
+                    pais: 'colombia',
+                    tema,
+                    genero,
+                    contexto
+                });
+            } else {
+                mensaje = window.aiCardGenerator?.getFallbackMessage(nombre, tema) ||
+                    `¡Feliz Navidad, ${nombre}! Que esta temporada llene tu vida de amor y bendiciones.`;
+            }
+
+            // Generar imagen con IA
+            if (generateImage && window.aiCardGenerator) {
+                imageUrl = await window.aiCardGenerator.generateImage({
+                    pais: 'colombia',
+                    nombre
+                });
+            } else {
+                imageUrl = window.aiCardGenerator?.getFallbackImage('colombia');
+            }
+
+            // Subir archivo adjunto si existe
+            if (attachment && window.aiCardGenerator) {
+                const uploadedUrl = await window.aiCardGenerator.uploadFile(attachment);
+                if (uploadedUrl) {
+                    attachments.push({
+                        url: uploadedUrl,
+                        type: attachment.type,
+                        name: attachment.name
+                    });
+                }
+            }
+
+            // Mostrar preview
+            const preview = document.getElementById('messagePreview');
+            if (preview) {
+                preview.innerHTML = `<strong>Para ${nombre}:</strong><br>${mensaje}`;
+                preview.style.display = 'block';
+            }
+
+            // Guardar tarjeta y obtener URL
+            const result = await window.aiCardGenerator.saveCard({
+                nombre,
+                pais: 'colombia',
+                tema,
+                genero,
+                mensaje,
+                imageUrl,
+                attachments,
+                remitente
+            });
+
+            if (result && result.shareUrl) {
+                const urlDisplay = document.getElementById('generatedURL');
+                if (urlDisplay) {
+                    urlDisplay.value = result.shareUrl;
+                    urlDisplay.style.display = 'block';
+                }
+
+                const shareButtons = document.getElementById('shareButtons');
+                if (shareButtons) {
+                    shareButtons.style.display = 'flex';
+                }
+
+                showToast('🎄 ¡Tarjeta creada con IA! Compártela');
+            }
+        }
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'toast-notification';
+            toast.textContent = message;
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 100px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: linear-gradient(45deg, #FFD700, #CE1126);
+                color: #000;
+                padding: 15px 30px;
+                border-radius: 50px;
+                font-weight: bold;
+                z-index: 10000;
+                animation: fadeInOut 3s ease forwards;
+            `;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        // Verificar conexión con API al cargar
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (window.aiCardGenerator) {
+                const health = await window.aiCardGenerator.checkHealth();
+                if (health) {
+                    console.log('✅ API conectada:', health);
+                } else {
+                    console.warn('⚠️ API no disponible, usando modo local');
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
