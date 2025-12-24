@@ -185,12 +185,18 @@ class AICardGenerator {
 
     saveCardLocal(cardData) {
         // Generar URL compartible con parámetros (sin necesidad de backend)
-        const baseUrl = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, '');
+        // URL fija al sitio de GitHub Pages
+        const siteUrl = window.location.hostname.includes('github.io')
+            ? 'https://agem2024.github.io/tarjetas-y-mesj'
+            : window.location.origin;
+
         const params = new URLSearchParams();
         params.set('nombre', cardData.nombre || '');
         params.set('tema', cardData.tema || 'familiar');
         params.set('pais', cardData.pais || 'colombia');
-        params.set('msg', encodeURIComponent(cardData.mensaje || ''));
+        if (cardData.mensaje) {
+            params.set('msg', encodeURIComponent(cardData.mensaje));
+        }
 
         // También guardar en localStorage como backup
         const id = Math.random().toString(36).substr(2, 8);
@@ -199,8 +205,8 @@ class AICardGenerator {
         cards[id] = card;
         localStorage.setItem('christmasCards', JSON.stringify(cards));
 
-        // URL directa con parámetros (funciona sin backend)
-        const shareUrl = `${baseUrl}/card-viewer.html?${params.toString()}`;
+        // URL directa con parámetros (funciona sin backend - compartible!)
+        const shareUrl = `${siteUrl}/card-viewer.html?${params.toString()}`;
 
         return { success: true, card, shareUrl };
     }
