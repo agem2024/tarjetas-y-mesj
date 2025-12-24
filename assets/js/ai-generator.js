@@ -184,12 +184,25 @@ class AICardGenerator {
     }
 
     saveCardLocal(cardData) {
+        // Generar URL compartible con parámetros (sin necesidad de backend)
+        const baseUrl = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, '');
+        const params = new URLSearchParams();
+        params.set('nombre', cardData.nombre || '');
+        params.set('tema', cardData.tema || 'familiar');
+        params.set('pais', cardData.pais || 'colombia');
+        params.set('msg', encodeURIComponent(cardData.mensaje || ''));
+
+        // También guardar en localStorage como backup
         const id = Math.random().toString(36).substr(2, 8);
         const card = { ...cardData, id, createdAt: new Date().toISOString() };
         const cards = JSON.parse(localStorage.getItem('christmasCards') || '{}');
         cards[id] = card;
         localStorage.setItem('christmasCards', JSON.stringify(cards));
-        return { success: true, card, shareUrl: `${window.location.origin}/card-viewer.html?id=${id}` };
+
+        // URL directa con parámetros (funciona sin backend)
+        const shareUrl = `${baseUrl}/card-viewer.html?${params.toString()}`;
+
+        return { success: true, card, shareUrl };
     }
 
     getCardLocal(id) {

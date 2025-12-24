@@ -467,12 +467,25 @@
             const nombre = params.get('nombre') || params.get('name') || 'Amigo/a';
             const pais = params.get('pais') || 'colombia';
             const tema = params.get('tema') || 'familiar';
+            const msgEncoded = params.get('msg');
+
+            // Decodificar mensaje si viene en URL
+            let mensaje;
+            if (msgEncoded) {
+                try {
+                    mensaje = decodeURIComponent(msgEncoded);
+                } catch {
+                    mensaje = window.aiCardGenerator.getFallbackMessage(nombre, tema);
+                }
+            } else {
+                mensaje = window.aiCardGenerator.getFallbackMessage(nombre, tema);
+            }
 
             document.getElementById('loadingState').style.display = 'none';
             document.getElementById('envelope').style.display = 'block';
 
             document.getElementById('recipientName').textContent = nombre;
-            document.getElementById('cardMessage').textContent = window.aiCardGenerator.getFallbackMessage(nombre, tema);
+            document.getElementById('cardMessage').textContent = mensaje;
 
             const img = document.getElementById('cardImage');
             img.src = window.aiCardGenerator.getFallbackImage(pais);
