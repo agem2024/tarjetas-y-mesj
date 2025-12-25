@@ -428,6 +428,32 @@
                 <small class="form-hint">Imagen o video para incluir en la tarjeta</small>
             </div>
 
+            <!-- Selector de imagen de fondo -->
+            <div class="form-group">
+                <label class="form-label">🖼️ Imagen de fondo</label>
+                <div id="imageGallery"
+                    style="max-height: 250px; overflow-y: auto; padding: 10px; background: rgba(0,0,0,0.3); border-radius: 15px;">
+                    <!-- Gallery loaded by JS -->
+                </div>
+                <input type="hidden" id="selectedImageUrl">
+            </div>
+
+            <!-- Selector de personalidad de voz TTS -->
+            <div class="form-group">
+                <label class="form-label">🎤 Voz para leer el mensaje</label>
+                <select id="voicePersonality" class="form-select">
+                    <option value="alegre">🎉 Alegre y Festiva</option>
+                    <option value="solemne">🕯️ Solemne y Espiritual</option>
+                    <option value="comico">😂 Cómica y Divertida</option>
+                    <option value="romantico">❤️ Romántica y Suave</option>
+                    <option value="motivacional">💪 Motivacional y Energética</option>
+                </select>
+                <button type="button" onclick="testVoice()"
+                    style="margin-top: 10px; padding: 8px 15px; background: linear-gradient(45deg, #FFD700, #ff6b6b); border: none; border-radius: 15px; cursor: pointer; font-size: 0.9rem;">
+                    🔊 Probar Voz
+                </button>
+            </div>
+
             <button class="create-btn" onclick="createAICard()">
                 🎁 Crear Tarjeta con IA
             </button>
@@ -562,9 +588,33 @@
         }
     </script>
 
-    <!-- Scripts de IA -->
+    <!-- Scripts de IA y Assets -->
+    <script src="../assets/js/asset-catalog.js"></script>
     <script src="../assets/js/ai-generator.js"></script>
     <script src="../assets/js/main.js"></script>
+
+    <script>
+        // Inicializar galería de imágenes al cargar
+        document.addEventListener('DOMContentLoaded', function () {
+            // Cargar galería de imágenes
+            if (window.assetManager) {
+                window.assetManager.renderImageGallery('imageGallery', function (img) {
+                    document.getElementById('selectedImageUrl').value = img.url;
+                    showToast('🖼️ Imagen seleccionada: ' + img.name);
+                });
+            }
+        });
+
+        // Función para probar voz TTS
+        function testVoice() {
+            const personality = document.getElementById('voicePersonality').value;
+            if (window.assetManager) {
+                window.assetManager.speak('¡Feliz Navidad! Este es un ejemplo de cómo sonará tu mensaje personalizado.', personality);
+            } else {
+                alert('TTS no disponible en este navegador');
+            }
+        }
+    </script>
 
     <script>
         // ============================================
