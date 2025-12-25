@@ -2,34 +2,39 @@
    ASSET CATALOG - Christmas Images, Audio & TTS
    ============================================ */
 
+// Detectar base URL del sitio
+const SITE_BASE_URL = window.location.hostname.includes('github.io')
+    ? '/tarjetas-y-mesj'
+    : '';
+
 const CHRISTMAS_ASSETS = {
     // ==========================================
-    // IMAGES BY CATEGORY
+    // IMAGES BY CATEGORY (rutas absolutas)
     // ==========================================
     images: {
         backgrounds: [
-            { id: 'bg_tree', url: 'assets/images/christmas/backgrounds/bg_christmas_tree_01_1766610977463.png', name: 'Árbol Navideño' },
-            { id: 'bg_landscape', url: 'assets/images/christmas/backgrounds/bg_snowy_landscape_01_1766610989803.png', name: 'Paisaje Nevado' },
-            { id: 'bg_fireplace', url: 'assets/images/christmas/backgrounds/bg_fireplace_cozy_01_1766611001968.png', name: 'Chimenea Acogedora' },
-            { id: 'bg_ornaments', url: 'assets/images/christmas/backgrounds/bg_ornaments_gold_01_1766611088630.png', name: 'Ornamentos Dorados' },
-            { id: 'bg_presents', url: 'assets/images/christmas/backgrounds/bg_presents_wrapped_01_1766611101981.png', name: 'Regalos Envueltos' },
-            { id: 'bg_cabin', url: 'assets/images/christmas/backgrounds/bg_winter_cabin_01_1766611115996.png', name: 'Cabaña Invernal' },
-            { id: 'bg_snowflakes', url: 'assets/images/christmas/backgrounds/bg_snowflakes_02_1766619937817.png', name: 'Copos de Nieve' },
-            { id: 'bg_candles', url: 'assets/images/christmas/backgrounds/bg_candles_festive_01_1766619949758.png', name: 'Velas Festivas' },
-            { id: 'bg_northpole', url: 'assets/images/christmas/backgrounds/bg_north_pole_01_1766619963317.png', name: 'Polo Norte' }
+            { id: 'bg_tree', url: `${SITE_BASE_URL}/assets/images/christmas/backgrounds/bg_christmas_tree_01_1766610977463.png`, name: 'Árbol Navideño' },
+            { id: 'bg_landscape', url: `${SITE_BASE_URL}/assets/images/christmas/backgrounds/bg_snowy_landscape_01_1766610989803.png`, name: 'Paisaje Nevado' },
+            { id: 'bg_fireplace', url: `${SITE_BASE_URL}/assets/images/christmas/backgrounds/bg_fireplace_cozy_01_1766611001968.png`, name: 'Chimenea Acogedora' },
+            { id: 'bg_ornaments', url: `${SITE_BASE_URL}/assets/images/christmas/backgrounds/bg_ornaments_gold_01_1766611088630.png`, name: 'Ornamentos Dorados' },
+            { id: 'bg_presents', url: `${SITE_BASE_URL}/assets/images/christmas/backgrounds/bg_presents_wrapped_01_1766611101981.png`, name: 'Regalos Envueltos' },
+            { id: 'bg_cabin', url: `${SITE_BASE_URL}/assets/images/christmas/backgrounds/bg_winter_cabin_01_1766611115996.png`, name: 'Cabaña Invernal' },
+            { id: 'bg_snowflakes', url: `${SITE_BASE_URL}/assets/images/christmas/backgrounds/bg_snowflakes_02_1766619937817.png`, name: 'Copos de Nieve' },
+            { id: 'bg_candles', url: `${SITE_BASE_URL}/assets/images/christmas/backgrounds/bg_candles_festive_01_1766619949758.png`, name: 'Velas Festivas' },
+            { id: 'bg_northpole', url: `${SITE_BASE_URL}/assets/images/christmas/backgrounds/bg_north_pole_01_1766619963317.png`, name: 'Polo Norte' }
         ],
         characters: [
-            { id: 'char_santa', url: 'assets/images/christmas/characters/char_santa_claus_01_1766611024221.png', name: 'Santa Claus' },
-            { id: 'char_reindeer', url: 'assets/images/christmas/characters/char_reindeer_01_1766611127191.png', name: 'Reno Rudolph' }
+            { id: 'char_santa', url: `${SITE_BASE_URL}/assets/images/christmas/characters/char_santa_claus_01_1766611024221.png`, name: 'Santa Claus' },
+            { id: 'char_reindeer', url: `${SITE_BASE_URL}/assets/images/christmas/characters/char_reindeer_01_1766611127191.png`, name: 'Reno Rudolph' }
         ],
         cultural: [
-            { id: 'col_christmas', url: 'assets/images/christmas/cultural/cultural_colombia_01_1766611038179.png', name: 'Navidad Colombiana', country: 'colombia' },
-            { id: 'mex_christmas', url: 'assets/images/christmas/cultural/cultural_mexico_01_1766611051018.png', name: 'Navidad Mexicana', country: 'mexico' },
-            { id: 'usa_christmas', url: 'assets/images/christmas/cultural/cultural_usa_01_1766611065384.png', name: 'Navidad Americana', country: 'usa' }
+            { id: 'col_christmas', url: `${SITE_BASE_URL}/assets/images/christmas/cultural/cultural_colombia_01_1766611038179.png`, name: 'Navidad Colombiana', country: 'colombia' },
+            { id: 'mex_christmas', url: `${SITE_BASE_URL}/assets/images/christmas/cultural/cultural_mexico_01_1766611051018.png`, name: 'Navidad Mexicana', country: 'mexico' },
+            { id: 'usa_christmas', url: `${SITE_BASE_URL}/assets/images/christmas/cultural/cultural_usa_01_1766611065384.png`, name: 'Navidad Americana', country: 'usa' }
         ],
         decorations: [
-            { id: 'deco_wreath', url: 'assets/images/christmas/decorations/deco_wreath_01_1766620057833.png', name: 'Corona Navideña' },
-            { id: 'deco_bells', url: 'assets/images/christmas/decorations/deco_bells_01_1766620069720.png', name: 'Campanas Doradas' }
+            { id: 'deco_wreath', url: `${SITE_BASE_URL}/assets/images/christmas/decorations/deco_wreath_01_1766620057833.png`, name: 'Corona Navideña' },
+            { id: 'deco_bells', url: `${SITE_BASE_URL}/assets/images/christmas/decorations/deco_bells_01_1766620069720.png`, name: 'Campanas Doradas' }
         ]
     },
 
