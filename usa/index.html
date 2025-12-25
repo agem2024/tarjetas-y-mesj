@@ -305,69 +305,61 @@
         <p style="margin-top: 10px;"><a href="https://agem2024.github.io/SEGURITI-USC/orion-bots.html"
                 target="_blank">Powered by ORION Tech</a></p>
     </footer>
-    <!-- Reproductor de música AMERICANA -->
-    <div id="musicPlayer"></div>
+    <!-- Scripts de IA, Audio y Traducciones -->
+    <script src="../assets/js/translations.js"></script>
+    <script src="../assets/js/asset-catalog.js"></script>
+    <script src="../assets/js/ai-assistant.js"></script>
+    <script src="../assets/js/main.js"></script>
 
-    <!-- Sistema de música americana -->
     <script>
-        // Música navideña USA - Classic American Christmas
-        const USA_MUSIC_URL = 'https://www.youtube.com/embed/aAkMkVFwAoo?autoplay=1&loop=1&playlist=aAkMkVFwAoo';
-
-        document.addEventListener('DOMContentLoaded', function () {
-            const musicPlayer = document.getElementById('musicPlayer');
-            musicPlayer.innerHTML = `
-                <iframe 
-                    id="youtubePlayer"
-                    width="0" 
-                    height="0" 
-                    src="${USA_MUSIC_URL}" 
-                    frameborder="0" 
-                    allow="autoplay; encrypted-media" 
-                    style="position: fixed; bottom: -100px; opacity: 0; pointer-events: none;">
-                </iframe>
-            `;
-
-            setTimeout(() => {
-                showMusicToast('🇺🇸🎵 Classic American Christmas!');
-            }, 2000);
-        });
-
+        // MÚSICA TRAS REFACTORIZACIÓN (MUTE REAL)
         let musicPlaying = true;
+        const COUNTRY_MUSIC = "https://www.youtube.com/embed/aAkMkVFwAoo?autoplay=1&loop=1&playlist=aAkMkVFwAoo";
 
         function toggleMusic() {
             const player = document.getElementById('youtubePlayer');
             const toggle = document.getElementById('audioToggle');
+            const lang = window.langManager ? window.langManager.currentLang : 'en';
 
             if (musicPlaying) {
-                if (player) player.src = '';
+                if (player) {
+                    player.setAttribute('data-src', player.src);
+                    player.src = ""; // VACIADO REAL PARA DETENER SONIDO
+                }
                 toggle.textContent = '🔇';
                 musicPlaying = false;
-                showMusicToast('🔇 Music paused');
+                const msg = lang === 'es' ? '🔇 Música pausada' : '🔇 Music paused';
+                showToast(msg);
             } else {
-                if (player) player.src = USA_MUSIC_URL;
+                if (player) {
+                    player.src = player.getAttribute('data-src') || COUNTRY_MUSIC;
+                }
                 toggle.textContent = '🎵';
                 musicPlaying = true;
-                showMusicToast('🇺🇸🎵 Classic American Christmas!');
+                const msg = lang === 'es' ? '🎵 Villancicos activos' : '🎵 Christmas Music ON';
+                showToast(msg);
             }
         }
 
-        function showMusicToast(message) {
-            const oldToast = document.querySelector('.music-toast');
-            if (oldToast) oldToast.remove();
-
+        function showToast(message) {
+            const old = document.querySelector('.toast-notification');
+            if (old) old.remove();
             const toast = document.createElement('div');
-            toast.className = 'music-toast';
+            toast.className = 'toast-notification';
             toast.textContent = message;
             toast.style.cssText = `
-                position: fixed; top: 140px; right: 20px;
-                background: linear-gradient(135deg, #B22234, #3C3B6E);
-                color: #fff; padding: 12px 20px; border-radius: 25px;
-                font-weight: bold; font-size: 0.9rem; z-index: 10001;
-                animation: slideIn 0.5s ease; box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+                position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%);
+                background: linear-gradient(135deg, #B22234, #3C3B6E); color: #fff;
+                padding: 15px 30px; border-radius: 50px; font-weight: bold; z-index: 10000;
+                animation: fadeInOut 3s ease forwards;
             `;
             document.body.appendChild(toast);
-            setTimeout(() => toast.remove(), 3500);
+            setTimeout(() => toast.remove(), 3000);
         }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.langManager) window.langManager.updatePage();
+        });
     </script>
 
     <script src="../assets/js/main.js"></script>

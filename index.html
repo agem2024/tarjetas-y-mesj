@@ -55,8 +55,8 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <h1 class="hero-title">¡Feliz Navidad!</h1>
-        <p class="hero-subtitle">Celebra con las tradiciones más hermosas</p>
+        <h1 class="hero-title" data-i18n="heroTitle.home">¡Feliz Navidad!</h1>
+        <p class="hero-subtitle" data-i18n="heroSubtitle">Celebra con las tradiciones más hermosas</p>
 
         <!-- Selector de países -->
         <div class="countries-grid">
@@ -99,13 +99,14 @@
         <!-- Banner de mensaje rápido -->
         <div class="message-banner">
             <p class="message-text">
-                ✨ Querido/a <span class="recipient-name" id="recipientNameDisplay">Amigo/a</span>,
-                <br>que esta Navidad llene tu vida de bendiciones ✨
+                ✨ <span data-i18n="dear">Querido/a</span> <span class="recipient-name" id="recipientNameDisplay"
+                    data-i18n="friend">Amigo/a</span>,
+                <br><span data-i18n="blessingsMsg">que esta Navidad llene tu vida de bendiciones</span> ✨
             </p>
             <div class="name-input-container">
-                <input type="text" id="recipientName" class="name-input"
+                <input type="text" id="recipientName" class="name-input" data-i18n="recipientPlaceholder"
                     placeholder="Escribe el nombre del destinatario..." maxlength="30">
-                <button class="generate-btn" onclick="updateRecipientName()">
+                <button class="generate-btn" onclick="updateRecipientName()" data-i18n="personalize">
                     🎁 Personalizar
                 </button>
             </div>
@@ -115,149 +116,78 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <p>Hecho con ❤️ y espíritu navideño 🎄</p>
+        <p data-i18n="madeWithLove">Hecho con ❤️ y espíritu navideño 🎄</p>
         <p style="margin-top: 10px;">
-            <a href="https://agem2024.github.io/SEGURITI-USC/orion-bots.html" target="_blank">
+            <a href="https://agem2024.github.io/SEGURITI-USC/orion-bots.html" target="_blank"
+                data-i18n="orionPoweredBy">
                 Powered by ORION Tech
             </a>
         </p>
     </footer>
 
-    <!-- Sistema de música navideña con YouTube -->
+    <!-- Scripts de IA, Audio y Traducciones -->
+    <script src="assets/js/translations.js"></script>
+    <script src="assets/js/asset-catalog.js"></script>
+    <script src="assets/js/ai-assistant.js"></script>
+    <script src="assets/js/main.js"></script>
+
     <script>
-        // Música navideña automática al cargar
-        document.addEventListener('DOMContentLoaded', function () {
-            // Crear reproductor de YouTube embebido
-            const musicPlayer = document.getElementById('musicPlayer');
-            musicPlayer.innerHTML = `
-                <iframe 
-                    id="youtubePlayer"
-                    width="0" 
-                    height="0" 
-                    src="https://www.youtube.com/embed/aAkMkVFwAoo?autoplay=1&loop=1&playlist=aAkMkVFwAoo" 
-                    frameborder="0" 
-                    allow="autoplay; encrypted-media" 
-                    style="position: fixed; bottom: -100px; opacity: 0; pointer-events: none;">
-                </iframe>
-            `;
-
-            // Mostrar notificación de música
-            setTimeout(() => {
-                showMusicToast('🎵 ¡Música navideña activa! Haz clic en 🎵 para pausar');
-            }, 2000);
-        });
-
+        // MÚSICA TRAS REFACTORIZACIÓN (MUTE REAL)
         let musicPlaying = true;
+        const DEFAULT_MUSIC = "https://www.youtube.com/embed/aAkMkVFwAoo?autoplay=1&loop=1&playlist=aAkMkVFwAoo";
 
         function toggleMusic() {
             const player = document.getElementById('youtubePlayer');
             const toggle = document.getElementById('audioToggle');
+            const lang = window.langManager ? window.langManager.currentLang : 'en';
 
             if (musicPlaying) {
-                if (player) player.src = '';
+                if (player) {
+                    player.setAttribute('data-src', player.src);
+                    player.src = ""; // VACIADO REAL PARA DETENER SONIDO
+                }
                 toggle.textContent = '🔇';
-                toggle.title = 'Activar música';
                 musicPlaying = false;
-                showMusicToast('🔇 Música pausada');
+                const msg = lang === 'es' ? '🔇 Música pausada' : '🔇 Music paused';
+                showToast(msg);
             } else {
                 if (player) {
-                    player.src = 'https://www.youtube.com/embed/aAkMkVFwAoo?autoplay=1&loop=1&playlist=aAkMkVFwAoo';
+                    player.src = player.getAttribute('data-src') || DEFAULT_MUSIC;
                 }
                 toggle.textContent = '🎵';
-                toggle.title = 'Pausar música';
                 musicPlaying = true;
-                showMusicToast('🎵 ¡Música navideña activa!');
+                const msg = lang === 'es' ? '🎵 Villancicos activos' : '🎵 Christmas Music ON';
+                showToast(msg);
             }
         }
 
-        function showMusicToast(message) {
-            // Remover toast anterior si existe
-            const oldToast = document.querySelector('.music-toast');
-            if (oldToast) oldToast.remove();
-
+        function showToast(message) {
+            const old = document.querySelector('.toast-notification');
+            if (old) old.remove();
             const toast = document.createElement('div');
-            toast.className = 'music-toast';
+            toast.className = 'toast-notification';
             toast.textContent = message;
             toast.style.cssText = `
-                position: fixed;
-                top: 140px;
-                right: 20px;
-                background: linear-gradient(135deg, rgba(255, 215, 0, 0.9), rgba(188, 19, 254, 0.9));
-                color: #000;
-                padding: 12px 20px;
-                border-radius: 25px;
-                font-weight: bold;
-                font-size: 0.9rem;
-                z-index: 10001;
-                animation: slideInRight 0.5s ease, fadeOutRight 0.5s ease 3s forwards;
-                box-shadow: 0 5px 25px rgba(255, 215, 0, 0.5);
+                position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%);
+                background: linear-gradient(45deg, #FFD700, #ff6b6b); color: #000;
+                padding: 15px 30px; border-radius: 50px; font-weight: bold; z-index: 10000;
+                animation: fadeInOut 3s ease forwards;
             `;
             document.body.appendChild(toast);
-            setTimeout(() => toast.remove(), 3500);
+            setTimeout(() => toast.remove(), 3000);
         }
 
-        // Crear ornamentos flotantes 3D
-        function createFloatingOrnaments() {
-            const container = document.getElementById('floatingOrnaments');
-            if (!container) return;
-
-            const ornaments = ['🎄', '🎅', '🎁', '⭐', '🔔', '🦌', '☃️', '🎀', '🪅', '✨'];
-
-            for (let i = 0; i < 20; i++) {
-                const ornament = document.createElement('div');
-                ornament.className = 'floating-ornament';
-                ornament.textContent = ornaments[Math.floor(Math.random() * ornaments.length)];
-                ornament.style.cssText = `
-                    position: absolute;
-                    font-size: ${1.5 + Math.random() * 2}rem;
-                    left: ${Math.random() * 100}%;
-                    top: ${Math.random() * 100}%;
-                    animation: floatOrnament ${10 + Math.random() * 15}s ease-in-out infinite;
-                    animation-delay: ${Math.random() * 5}s;
-                    opacity: 0.7;
-                    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
-                    cursor: pointer;
-                    transition: transform 0.3s ease;
-                `;
-                ornament.addEventListener('click', function () {
-                    this.style.transform = 'scale(1.5) rotate(360deg)';
-                    setTimeout(() => this.style.transform = '', 500);
-                });
-                container.appendChild(ornament);
+        document.addEventListener('DOMContentLoaded', () => {
+            // Asegurar que el bilingüismo se aplique al home (Default EN)
+            if (window.langManager) {
+                // Si no hay idioma guardado, poner EN como pidió el usuario
+                if (!localStorage.getItem('christmas_lang')) {
+                    window.langManager.setLanguage('en');
+                }
+                window.langManager.updatePage();
             }
-        }
-
-        // Crear partículas doradas brillantes
-        function createGoldenParticles() {
-            const container = document.getElementById('goldenParticles');
-            if (!container) return;
-
-            for (let i = 0; i < 30; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'golden-particle';
-                particle.style.cssText = `
-                    position: absolute;
-                    width: ${3 + Math.random() * 5}px;
-                    height: ${3 + Math.random() * 5}px;
-                    background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700);
-                    border-radius: 50%;
-                    left: ${Math.random() * 100}%;
-                    animation: sparkleFloat ${5 + Math.random() * 10}s ease-in-out infinite;
-                    animation-delay: ${Math.random() * 5}s;
-                    box-shadow: 0 0 15px #FFD700, 0 0 30px #FFD700;
-                `;
-                container.appendChild(particle);
-            }
-        }
-
-        // Inicializar efectos al cargar
-        document.addEventListener('DOMContentLoaded', function () {
-            createFloatingOrnaments();
-            createGoldenParticles();
         });
     </script>
-
-    <script src="assets/js/main.js"></script>
 </body>
 
 </html>
