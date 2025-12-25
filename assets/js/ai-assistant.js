@@ -1,12 +1,12 @@
 /* ============================================
-   AI ASSISTANT - The Christmas "Brain" 🧠
+   AI ASSISTANT - Nelson, the Christmas Brain 🧠
    ============================================ */
 
 class ChristmasAIAssistant {
     constructor() {
+        this.name = 'Nelson';
         this.isOpen = false;
         this.isSpeaking = false;
-        this.messages = [];
         this.openaiKey = localStorage.getItem('openai_api_key') || '';
         this.geminiKey = localStorage.getItem('gemini_api_key') || '';
         this.init();
@@ -23,18 +23,18 @@ class ChristmasAIAssistant {
         container.innerHTML = `
             <div class="ai-chat-window" id="aiChatWindow">
                 <div class="ai-chat-header">
-                    <span>🎄 Cerebro Navideño IA</span>
+                    <span>🎄 ${this.name}, tu Cerebro Navideño</span>
                     <button onclick="window.aiAssistant.toggleChat()" style="background:none; border:none; color:white; cursor:pointer;">✖</button>
                 </div>
                 <div class="ai-messages" id="aiMessages"></div>
                 <div class="ai-input-area">
-                    <input type="text" class="ai-input" id="aiInput" placeholder="Pregunta algo..." onkeypress="if(event.key==='Enter') window.aiAssistant.sendMessage()">
+                    <input type="text" class="ai-input" id="aiInput" placeholder="Pregúntale a Nelson..." onkeypress="if(event.key==='Enter') window.aiAssistant.sendMessage()">
                     <button class="ai-send-btn" onclick="window.aiAssistant.sendMessage()">⬆️</button>
                 </div>
             </div>
             <div class="ai-assistant-bubble" id="aiBubble" onclick="window.aiAssistant.toggleChat()">
                 <div class="speaking-ring"></div>
-                <img src="/tarjetas-y-mesj/assets/images/christmas/ai_helper_icon.png" alt="AI Helper" onerror="this.src='https://cdn-icons-png.flaticon.com/512/325/325854.png'">
+                <img src="/tarjetas-y-mesj/assets/images/christmas/ai_helper_icon.png" alt="Nelson AI" onerror="this.src='https://cdn-icons-png.flaticon.com/512/325/325854.png'">
             </div>
         `;
         document.body.appendChild(container);
@@ -59,28 +59,29 @@ class ChristmasAIAssistant {
         if (text.toLowerCase() === '/tjnav') {
             const lang = window.langManager ? window.langManager.currentLang : 'es';
             const response = lang === 'es'
-                ? '🚀 ¡Iniciando asistente de creación! Dime: ¿Para quién es la tarjeta y qué tono prefieres (familiar, cómico, etc)?'
-                : '🚀 Starting card creation assistant! Tell me: Who is the card for and what tone do you prefer (family, funny, etc)?';
+                ? `🚀 ¡Hola! Soy ${this.name}. Iniciando asistente de creación. Dime: ¿Para quién es la tarjeta y qué tono prefieres?`
+                : `🚀 Hello! I'm ${this.name}. Starting card creation! Tell me: Who's the card for and what tone do you prefer?`;
             this.addMessage('ai', response);
             return;
         }
 
         // Si no hay llaves, pedir una de forma segura
         if (!this.openaiKey && !this.geminiKey) {
-            this.addMessage('ai', '¡Hola! Para ser tu "Cerebro Navideño" necesito una llave de API (OpenAI o Gemini). No te preocupes, se guardará solo en tu navegador. ¿Cuál quieres usar? (Escribe: /api OPENAI_KEY)');
+            this.addMessage('ai', '¡Hola! Para ser tu "Cerebro Navideño" necesito una llave de API (OpenAI o Gemini). No te preocupes, se guardará solo en tu navegador. ¿Cuál quieres usar? (Escribe: /api TU_LLAVE)');
             return;
         }
 
+        // COMANDO /api
         if (text.startsWith('/api ')) {
             const key = text.split(' ')[1];
             if (key.startsWith('sk-')) {
                 this.openaiKey = key;
                 localStorage.setItem('openai_api_key', key);
-                this.addMessage('ai', '✅ Llave de OpenAI guardada correctamente. ¡Ya soy más inteligente!');
+                this.addMessage('ai', '✅ Llave de OpenAI guardada. ¡Nelson es ahora más inteligente!');
             } else {
                 this.geminiKey = key;
                 localStorage.setItem('gemini_api_key', key);
-                this.addMessage('ai', '✅ Llave de Gemini guardada correctamente.');
+                this.addMessage('ai', '✅ Llave de Gemini guardada.');
             }
             return;
         }
@@ -109,6 +110,8 @@ class ChristmasAIAssistant {
                 response = await this.callOpenAI(userText);
             } else if (this.geminiKey) {
                 response = await this.callGemini(userText);
+            } else {
+                response = "¡Hola! Soy Nelson. Para ayudarte mejor, necesito mi 'llave mágica' (API Key). Escribe: /api TU_LLAVE";
             }
 
             lastMsg.textContent = response;
@@ -128,7 +131,10 @@ class ChristmasAIAssistant {
             },
             body: JSON.stringify({
                 model: 'gpt-4o-mini',
-                messages: [{ role: 'system', content: 'Eres un duende navideño inteligente y bilingüe de ORION Tech. Ayudas al usuario a crear tarjetas de navidad increíbles. Eres alegre, creativo y hablas en el idioma que el usuario te hable.' }, { role: 'user', content: text }]
+                messages: [
+                    { role: 'system', content: `Eres Nelson, un asistente navideño afable, amable y experto de ORION Tech. Siempre te presentas como Nelson. No deletrees nombres. Ayudas a crear tarjetas increíbles. Tono masculino, profesional y muy cálido.` },
+                    { role: 'user', content: text }
+                ]
             })
         });
         const data = await response.json();
@@ -136,18 +142,35 @@ class ChristmasAIAssistant {
     }
 
     async callGemini(text) {
-        // Implementación básica de backup
-        return "¡Hola! Estoy usando Gemini para ayudarte. (Implementación de backup activa)";
+        return `¡Hola! Aquí Nelson usando mi cerebro de respaldo (Gemini). ¿En qué te ayudo?`;
     }
 
     speak(text) {
         if (!('speechSynthesis' in window)) return;
 
         window.speechSynthesis.cancel();
-        const utterance = new SpeechSynthesisUtterance(text);
+
+        // Limpiar texto para evitar deletreos si hay puntos extra o formatos raros
+        const cleanText = text.replace(/([A-Z])\.([A-Z])\./g, '$1$2').replace(/\s+/g, ' ');
+
+        const utterance = new SpeechSynthesisUtterance(cleanText);
+
+        // Configuración de voz masculina y afable (fallback local)
+        utterance.pitch = 0.9; // Un poco más grave para que suene masculino
+        utterance.rate = 0.95; // Un poco más pausado para ser amable
 
         // Detectar idioma
-        utterance.lang = this.isEnglish(text) ? 'en-US' : 'es-MX';
+        const lang = this.isEnglish(cleanText) ? 'en-US' : 'es-MX';
+        utterance.lang = lang;
+
+        // Intentar encontrar una voz masculina
+        const voices = window.speechSynthesis.getVoices();
+        const preferredVoice = voices.find(v =>
+            v.lang.startsWith(lang.split('-')[0]) &&
+            (v.name.toLowerCase().includes('male') || v.name.toLowerCase().includes('guy') || v.name.toLowerCase().includes('man'))
+        ) || voices.find(v => v.lang.startsWith(lang.split('-')[0]));
+
+        if (preferredVoice) utterance.voice = preferredVoice;
 
         utterance.onstart = () => {
             document.getElementById('aiBubble').classList.add('speaking');
@@ -160,17 +183,17 @@ class ChristmasAIAssistant {
     }
 
     isEnglish(text) {
-        const enWords = ['hello', 'christmas', 'card', 'help', 'you', 'my', 'the'];
+        const enWords = ['hello', 'christmas', 'card', 'help', 'you', 'my', 'the', 'i am', 'how'];
         return enWords.some(w => text.toLowerCase().includes(w));
     }
 
     welcomeMessage() {
         const lang = window.langManager ? window.langManager.currentLang : 'es';
         const msg = lang === 'es'
-            ? '¡Hola! Soy tu Cerebro Navideño. Te ayudaré a crear la tarjeta perfecta. ¿En qué puedo ayudarte hoy?'
-            : 'Hello! I am your Christmas Brain. I will help you create the perfect card. How can I help you today?';
+            ? `¡Hola! Soy Nelson, tu Cerebro Navideño. Estoy aquí para que tus tarjetas sean espectaculares. ¿Qué vamos a crear hoy?`
+            : `Hello! I'm Nelson, your Christmas Brain. I'm here to make your cards spectacular. What shall we create today?`;
 
-        setTimeout(() => this.addMessage('ai', msg), 1000);
+        setTimeout(() => this.addMessage('ai', msg), 1500);
     }
 }
 
