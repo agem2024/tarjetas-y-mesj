@@ -169,11 +169,19 @@ class ChristmasAssetManager {
     // -----------------------------------------
     // RENDER IMAGE GALLERY
     // -----------------------------------------
-    renderImageGallery(containerId, onSelect = null) {
+    renderImageGallery(containerId, countryFilter = null, onSelect = null) {
         const container = document.getElementById(containerId);
         if (!container) return;
 
-        const images = this.getAllImages();
+        let images = this.getAllImages();
+
+        // Filtrar imágenes culturales por país si se especifica
+        if (countryFilter) {
+            const generalImages = Object.values(this.assets.images).filter((cat, idx) => Object.keys(this.assets.images)[idx] !== 'cultural').flat();
+            const culturalImages = this.assets.images.cultural.filter(img => img.country === countryFilter);
+            images = [...generalImages, ...culturalImages];
+        }
+
         container.innerHTML = `
             <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 15px;">
                 ${images.map(img => `

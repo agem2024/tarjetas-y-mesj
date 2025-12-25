@@ -7,6 +7,7 @@
     <title>🇺🇸 Christmas in USA | Create Your Card</title>
     <meta name="description" content="Create and send personalized Christmas cards with American traditions.">
     <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/ai-assistant.css">
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🇺🇸</text></svg>">
     <style>
@@ -218,6 +219,11 @@
         </video>
     </a>
     <button class="audio-toggle" id="audioToggle" onclick="toggleMusic()">🎵</button>
+    <div id="musicPlayer" style="display:none;">
+        <iframe id="youtubePlayer" width="0" height="0"
+            src="https://www.youtube.com/embed/aAkMkVFwAoo?autoplay=1&loop=1&playlist=aAkMkVFwAoo" frameborder="0"
+            allow="autoplay"></iframe>
+    </div>
 
     <section class="hero" style="min-height: 60vh; padding-top: 100px;">
         <h1 class="hero-title">🇺🇸 American Christmas</h1>
@@ -252,6 +258,20 @@
                     <option value="mujer">👩 For Her</option>
                     <option value="hombre">👨 For Him</option>
                 </select>
+            </div>
+
+            <!-- Selector de imagen de fondo -->
+            <div class="form-group">
+                <label class="form-label">🖼️ Background Image</label>
+                <div id="imageGallery"
+                    style="max-height: 250px; overflow-y: auto; padding: 10px; background: rgba(0,0,0,0.3); border-radius: 15px;">
+                    <!-- Gallery loaded by JS -->
+                </div>
+            </div>
+
+            <!-- Selector de personalidad de voz TTS -->
+            <div class="form-group" id="voiceSelectorContainer">
+                <!-- Loaded by JS -->
             </div>
 
             <button class="create-btn" onclick="createCard()">🎁 Create Personalized Card</button>
@@ -359,6 +379,12 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             if (window.langManager) window.langManager.updatePage();
+
+            // Cargar Galería y Voces
+            if (window.assetManager) {
+                window.assetManager.renderImageGallery('imageGallery', 'usa');
+                window.assetManager.renderVoiceSelector('voiceSelectorContainer');
+            }
         });
     </script>
 

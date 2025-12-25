@@ -8,6 +8,7 @@
     <meta name="description"
         content="Celebra la Navidad con las tradiciones más hermosas de Colombia, Estados Unidos y México. Mensajes personalizados, música festiva y mucho más.">
     <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/ai-assistant.css">
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎄</text></svg>">
 </head>
@@ -45,7 +46,11 @@
     <button class="audio-toggle" id="audioToggle" title="🎵 Música Navideña" onclick="toggleMusic()">🎵</button>
 
     <!-- Reproductor de música embebido (oculto) -->
-    <div id="musicPlayer" style="display:none;"></div>
+    <div id="musicPlayer" style="display:none;">
+        <iframe id="youtubePlayer" width="0" height="0"
+            src="https://www.youtube.com/embed/aAkMkVFwAoo?autoplay=1&loop=1&playlist=aAkMkVFwAoo" frameborder="0"
+            allow="autoplay"></iframe>
+    </div>
 
     <!-- Ornamentos navideños flotantes 3D -->
     <div class="floating-ornaments" id="floatingOrnaments"></div>

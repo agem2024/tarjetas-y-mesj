@@ -80,7 +80,7 @@ class ChristmasAIAssistant {
             </div>
             <div class="ai-assistant-bubble" id="aiBubble" onclick="window.aiAssistant.toggleChat()">
                 <div class="speaking-ring"></div>
-                <img src="${window.location.origin}/tarjetas-y-mesj/assets/images/christmas/ai_helper_icon.png" alt="Nelson AI" onerror="this.src='https://cdn-icons-png.flaticon.com/512/325/325854.png'">
+                <img src="${this.getIconPath()}" alt="Nelson AI" onerror="this.src='https://cdn-icons-png.flaticon.com/512/325/325854.png'">
             </div>
         `;
         document.body.appendChild(container);
@@ -276,6 +276,15 @@ class ChristmasAIAssistant {
             : `Hello! I'm Nelson, your Christmas Brain. I've arrived to help you on this page. What shall we create today?`;
 
         setTimeout(() => this.addMessage('ai', msg), 2000);
+    }
+
+    getIconPath() {
+        // Detectar si estamos en una subcarpeta (ej: /colombia/) o en la raíz
+        const isSubfolder = window.location.pathname.includes('/colombia/') ||
+            window.location.pathname.includes('/usa/') ||
+            window.location.pathname.includes('/mexico/');
+        const base = isSubfolder ? '../' : '';
+        return `${base}assets/images/christmas/ai_helper_icon.png`;
     }
 }
 
