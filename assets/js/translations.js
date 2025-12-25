@@ -14,6 +14,7 @@ const TRANSLATIONS = {
             mexico: '🇲🇽 Navidad Mexicana'
         },
         heroSubtitle: 'Crea y envía tarjetas personalizadas',
+        orionPoweredBy: '🤖 Desarrollado por ORION',
 
         // Form
         createCardTitle: '🎄 Crea tu Tarjeta Navideña con IA',
@@ -104,6 +105,7 @@ const TRANSLATIONS = {
             mexico: '🇲🇽 Mexican Christmas'
         },
         heroSubtitle: 'Create and send personalized cards',
+        orionPoweredBy: '🤖 Powered by ORION',
 
         // Form
         createCardTitle: '🎄 Create Your AI Christmas Card',
