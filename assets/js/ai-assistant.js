@@ -1,5 +1,5 @@
 /* ============================================
-   AI ASSISTANT - Nelson, the Christmas Brain 🧔
+   AI ASSISTANT - Nelson, the New Year Brain 🧔
    ============================================ */
 
 class ChristmasAIAssistant {
@@ -41,9 +41,13 @@ class ChristmasAIAssistant {
             }
             const headerSpan = document.querySelector('.ai-chat-header span');
             if (headerSpan) {
-                headerSpan.innerHTML = this.currentLang === 'es'
-                    ? `🎄 ${this.name}, tu Cerebro Navideño`
-                    : `🎄 ${this.name}, your Christmas Brain`;
+                const headers = {
+                    'es': `🎆 ${this.name}, tu Cerebro de Año Nuevo`,
+                    'en': `🎆 ${this.name}, your New Year Brain`,
+                    'pt': `🎆 ${this.name}, seu Cérebro de Ano Novo`,
+                    'fr': `🎆 ${this.name}, votre Cerveau du Nouvel An`
+                };
+                headerSpan.innerHTML = headers[this.currentLang] || headers['en'];
             }
         });
 
@@ -59,12 +63,20 @@ class ChristmasAIAssistant {
     createUI() {
         const container = document.createElement('div');
         container.className = 'ai-assistant-container';
-        const headerText = this.currentLang === 'es'
-            ? `🎄 ${this.name}, tu Cerebro Navideño`
-            : `🎄 ${this.name}, your Christmas Brain`;
-        const placeholderText = this.currentLang === 'es'
-            ? 'Pregúntale a Nelson...'
-            : 'Ask Nelson...';
+        const headers = {
+            'es': `🎆 ${this.name}, tu Cerebro de Año Nuevo`,
+            'en': `🎆 ${this.name}, your New Year Brain`,
+            'pt': `🎆 ${this.name}, seu Cérebro de Ano Novo`,
+            'fr': `🎆 ${this.name}, votre Cerveau du Nouvel An`
+        };
+        const placeholders = {
+            'es': 'Pregúntale a Nelson...',
+            'en': 'Ask Nelson...',
+            'pt': 'Pergunte ao Nelson...',
+            'fr': 'Demandez à Nelson...'
+        };
+        const headerText = headers[this.currentLang] || headers['en'];
+        const placeholderText = placeholders[this.currentLang] || placeholders['en'];
 
         container.innerHTML = `
             <div class="ai-chat-window" id="aiChatWindow">
@@ -110,9 +122,13 @@ class ChristmasAIAssistant {
 
         // COMANDOS ESPECIALES
         if (text.toLowerCase() === '/tjnav') {
-            const response = this.currentLang === 'es'
-                ? `🚀 ¡Hola! Soy ${this.name}. Iniciando asistente de creación. Dime: ¿Para quién es la tarjeta?`
-                : `🚀 Hello! I'm ${this.name}. Starting card assistant. Who's the card for?`;
+            const responses = {
+                'es': `🚀 ¡Hola! Soy ${this.name}. Iniciando asistente de creación. Dime: ¿Para quién es la tarjeta?`,
+                'en': `🚀 Hello! I'm ${this.name}. Starting card assistant. Who's the card for?`,
+                'pt': `🚀 Olá! Sou ${this.name}. Iniciando assistente de criação. Para quem é o cartão?`,
+                'fr': `🚀 Bonjour! Je suis ${this.name}. Je lance l'assistant de création. Pour qui est la carte?`
+            };
+            const response = responses[this.currentLang] || responses['en'];
             this.addMessage('ai', response);
             return;
         }
@@ -165,9 +181,13 @@ class ChristmasAIAssistant {
             } else if (this.geminiKey) {
                 response = await this.callGemini(userText);
             } else {
-                response = this.currentLang === 'es'
-                    ? `¡Hola! Soy ${this.name}. Necesito mi 'llave mágica' (API Key). Escribe: /api TU_LLAVE`
-                    : `Hi! I'm ${this.name}. I need my 'magic key' (API Key). Type: /api YOUR_KEY`;
+                const noKeyResponses = {
+                    'es': `¡Hola! Soy ${this.name}. Necesito mi 'llave mágica' (API Key). Escribe: /api TU_LLAVE`,
+                    'en': `Hi! I'm ${this.name}. I need my 'magic key' (API Key). Type: /api YOUR_KEY`,
+                    'pt': `Olá! Sou ${this.name}. Preciso da minha 'chave mágica' (API Key). Digite: /api SUA_CHAVE`,
+                    'fr': `Bonjour! Je suis ${this.name}. J'ai besoin de ma 'clé magique' (API Key). Tapez: /api VOTRE_CLE`
+                };
+                response = noKeyResponses[this.currentLang] || noKeyResponses['en'];
             }
 
             // Update the placeholder message in the UI
@@ -178,9 +198,13 @@ class ChristmasAIAssistant {
 
             this.speak(response);
         } catch (error) {
-            lastMsgDiv.textContent = this.currentLang === 'es'
-                ? 'Huy, tuve un pequeño corto navideño. Inténtalo de nuevo.'
-                : 'Oops, Nelson had a little Christmas short-circuit. Try again!';
+            const errorMsgs = {
+                'es': 'Huy, tuve un pequeño corto de año nuevo. Inténtalo de nuevo.',
+                'en': 'Oops, Nelson had a little New Year short-circuit. Try again!',
+                'pt': 'Ops, tive um pequeno curto de ano novo. Tente novamente.',
+                'fr': 'Oups, j\'ai eu un petit court-circuit du nouvel an. Réessayez!'
+            };
+            lastMsgDiv.textContent = errorMsgs[this.currentLang] || errorMsgs['en'];
             // Update memory with error message
             this.chatHistory[this.chatHistory.length - 1].text = lastMsgDiv.textContent;
             localStorage.setItem('nelson_chat_history', JSON.stringify(this.chatHistory));
@@ -195,11 +219,12 @@ class ChristmasAIAssistant {
 
         const messages = [
             {
-                role: 'system', content: `You are Nelson, an affable, kind, and expert Christmas assistant from ORION Tech. 
+                role: 'system', content: `You are Nelson, an affable, kind, and expert New Year's assistant from ORION Tech. 
             You are currently on the page: ${pageContext}. 
             You always introduce yourself as Nelson. 
             NEVER spell your name (N-E-L-S-O-N), say it naturally. 
             Tone: Male, professional, charismatic. 
+            You help people celebrate the New Year and send warm wishes.
             Current language preference: ${this.currentLang}. Respond in this language unless explicitly asked otherwise.
             Conversation history: ${historyForPrompt}`
             },
@@ -226,9 +251,13 @@ class ChristmasAIAssistant {
     }
 
     async callGemini(text) {
-        return this.currentLang === 'es'
-            ? `¡Hola! Aquí Nelson usando mi cerebro de respaldo (Gemini). ¿En qué te ayudo?`
-            : `Hello! Nelson here using my backup brain (Gemini). How can I help?`;
+        const geminiMsgs = {
+            'es': `¡Hola! Aquí Nelson usando mi cerebro de respaldo (Gemini). ¿En qué te ayudo?`,
+            'en': `Hello! Nelson here using my backup brain (Gemini). How can I help?`,
+            'pt': `Olá! Aqui é o Nelson usando meu cérebro de backup (Gemini). Como posso ajudar?`,
+            'fr': `Bonjour! Nelson ici avec mon cerveau de secours (Gemini). Comment puis-je aider?`
+        };
+        return geminiMsgs[this.currentLang] || geminiMsgs['en'];
     }
 
     speak(text) {
@@ -271,9 +300,13 @@ class ChristmasAIAssistant {
         // Solo saludar si el chat está vacío o si se fuerza el saludo (ej. cambio de idioma)
         if (this.chatHistory.length > 0 && !force) return;
 
-        const msg = this.currentLang === 'es'
-            ? `¡Hola! Soy Nelson, tu Cerebro Navideño. He llegado para ayudarte en esta página. ¿Qué vamos a crear hoy?`
-            : `Hello! I'm Nelson, your Christmas Brain. I've arrived to help you on this page. What shall we create today?`;
+        const welcomeMsgs = {
+            'es': `¡Feliz Año Nuevo! Soy Nelson, tu Cerebro de Año Nuevo. He llegado para ayudarte a celebrar. ¿Qué vamos a crear hoy?`,
+            'en': `Happy New Year! I'm Nelson, your New Year Brain. I've arrived to help you celebrate. What shall we create today?`,
+            'pt': `Feliz Ano Novo! Sou Nelson, seu Cérebro de Ano Novo. Cheguei para ajudá-lo a comemorar. O que vamos criar hoje?`,
+            'fr': `Bonne Année! Je suis Nelson, votre Cerveau du Nouvel An. Je suis là pour vous aider à célébrer. Que allons-nous créer aujourd'hui?`
+        };
+        const msg = welcomeMsgs[this.currentLang] || welcomeMsgs['en'];
 
         setTimeout(() => this.addMessage('ai', msg), 2000);
     }

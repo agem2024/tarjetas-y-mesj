@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎄 Festividades Navideñas | Colombia • USA • México</title>
+    <title>🎆 Feliz Año Nuevo | Colombia • USA • México</title>
     <meta name="description"
-        content="Celebra la Navidad con las tradiciones más hermosas de Colombia, Estados Unidos y México. Mensajes personalizados, música festiva y mucho más.">
+        content="Celebra el Año Nuevo con las tradiciones más hermosas de Colombia, Estados Unidos y México. Mensajes personalizados, música festiva y mucho más.">
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="assets/css/ai-assistant.css">
     <link rel="icon"
-        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎄</text></svg>">
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎆</text></svg>">
 </head>
 
 <body>
@@ -18,10 +18,10 @@
     <!-- Cable de luces -->
     <div class="cable"></div>
 
-    <!-- Luces navideñas 3D -->
-    <div class="christmas-lights"></div>
+    <!-- Fuegos artificiales de Año Nuevo -->
+    <div class="New Year-lights"></div>
 
-    <!-- Efecto de nieve -->
+    <!-- Efecto de confeti -->
     <div class="snowflakes"></div>
 
     <!-- Icono flotante izquierdo - Tarjeta Personal -->
@@ -43,7 +43,7 @@
     </a>
 
     <!-- Control de Audio con música real -->
-    <button class="audio-toggle" id="audioToggle" title="🎵 Música Navideña" onclick="toggleMusic()">🎵</button>
+    <button class="audio-toggle" id="audioToggle" title="🎵 Música de Año Nuevo" onclick="toggleMusic()">🎵</button>
 
     <!-- Reproductor de música embebido (oculto) -->
     <div id="musicPlayer" style="display:none;">
@@ -60,7 +60,7 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <h1 class="hero-title" data-i18n="heroTitle.home">¡Feliz Navidad!</h1>
+        <h1 class="hero-title" data-i18n="heroTitle.home">¡Feliz Año Nuevo 2025!</h1>
         <p class="hero-subtitle" data-i18n="heroSubtitle">Celebra con las tradiciones más hermosas</p>
 
         <!-- Selector de países -->
@@ -68,33 +68,34 @@
 
             <!-- Colombia -->
             <a href="colombia/index.html" class="country-card colombia">
-                <img src="assets/images/colombia_christmas.png" alt="Navidad en Colombia" class="country-card-image">
+                <img src="assets/images/colombia_new_year.png" alt="Año Nuevo en Colombia" class="country-card-image">
                 <div class="country-card-content">
                     <span class="country-flag">🇨🇴</span>
                     <h2 class="country-name">Colombia</h2>
-                    <p class="country-tagline">Día de las Velitas, Novena de Aguinaldos, buñuelos, natilla y el calor de
+                    <p class="country-tagline">Año Viejo, maletera amarilla, lentejuelas doradas y el calor de
                         nuestra gente</p>
                 </div>
             </a>
 
             <!-- USA -->
             <a href="usa/index.html" class="country-card usa">
-                <img src="assets/images/usa_christmas.png" alt="Christmas in USA" class="country-card-image">
+                <img src="assets/images/usa_new_year.png" alt="New Year in USA" class="country-card-image">
                 <div class="country-card-content">
                     <span class="country-flag">🇺🇸</span>
                     <h2 class="country-name">United States</h2>
-                    <p class="country-tagline">Christmas trees, Santa Claus, eggnog, gingerbread houses, and the magic
-                        of winter wonderland</p>
+                    <p class="country-tagline">Times Square ball drop, champagne, resolutions, and the magic
+                        of new beginnings</p>
                 </div>
             </a>
 
             <!-- México -->
             <a href="mexico/index.html" class="country-card mexico">
-                <img src="assets/images/mexico_christmas.png" alt="Navidad en México" class="country-card-image">
+                <img src="assets/images/mexico_new_year.png" alt="Año Nuevo en México" class="country-card-image">
                 <div class="country-card-content">
                     <span class="country-flag">🇲🇽</span>
                     <h2 class="country-name">México</h2>
-                    <p class="country-tagline">Las Posadas, piñatas, ponche caliente, tamales y la alegría de nuestra
+                    <p class="country-tagline">12 uvas, maletas para viajar, lentejas para abundancia y la alegría de
+                        nuestra
                         cultura</p>
                 </div>
             </a>
@@ -106,7 +107,7 @@
             <p class="message-text">
                 ✨ <span data-i18n="dear">Querido/a</span> <span class="recipient-name" id="recipientNameDisplay"
                     data-i18n="friend">Amigo/a</span>,
-                <br><span data-i18n="blessingsMsg">que esta Navidad llene tu vida de bendiciones</span> ✨
+                <br><span data-i18n="blessingsMsg">que este Año Nuevo llene tu vida de bendiciones</span> ✨
             </p>
             <div class="name-input-container">
                 <input type="text" id="recipientName" class="name-input" data-i18n="recipientPlaceholder"
@@ -121,7 +122,7 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <p data-i18n="madeWithLove">Hecho con ❤️ y espíritu navideño 🎄</p>
+        <p data-i18n="madeWithLove">Hecho con ❤️ y espíritu festivo 🎆</p>
         <p style="margin-top: 10px;">
             <a href="https://agem2024.github.io/SEGURITI-USC/orion-bots.html" target="_blank"
                 data-i18n="orionPoweredBy">
@@ -161,7 +162,7 @@
                 }
                 toggle.textContent = '🎵';
                 musicPlaying = true;
-                const msg = lang === 'es' ? '🎵 Villancicos activos' : '🎵 Christmas Music ON';
+                const msg = lang === 'es' ? '🎵 Música de Año Nuevo' : '🎵 New Year Music ON';
                 showToast(msg);
             }
         }
@@ -186,7 +187,7 @@
             // Asegurar que el bilingüismo se aplique al home (Default EN)
             if (window.langManager) {
                 // Si no hay idioma guardado, poner EN como pidió el usuario
-                if (!localStorage.getItem('christmas_lang')) {
+                if (!localStorage.getItem('New Year_lang')) {
                     window.langManager.setLanguage('en');
                 }
                 window.langManager.updatePage();

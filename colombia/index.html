@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🇨🇴 Navidad en Colombia | Crea tu Tarjeta</title>
+    <title>🇨🇴 A�o Nuevo en Colombia | Crea tu Tarjeta</title>
     <meta name="description" content="Crea y envía tarjetas navideñas personalizadas con las tradiciones colombianas.">
     <link rel="stylesheet" href="../assets/css/styles.css">
     <link rel="stylesheet" href="../assets/css/ai-assistant.css">
@@ -12,7 +12,7 @@
         href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🇨🇴</text></svg>">
     <style>
         .hero {
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), var(--dark-bg)), url('../assets/images/colombia_christmas.png') center/cover;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), var(--dark-bg)), url('../assets/images/colombia_New Year.png') center/cover;
         }
 
         .country-accent {
@@ -322,7 +322,7 @@
 <body>
 
     <div class="cable"></div>
-    <div class="christmas-lights"></div>
+    <div class="New Year-lights"></div>
     <div class="snowflakes"></div>
 
     <a href="../index.html" class="nav-back">← Volver al Inicio</a>
@@ -345,7 +345,7 @@
     <button class="audio-toggle" id="audioToggle" onclick="toggleMusic()">🎵</button>
 
     <section class="hero" style="min-height: 60vh; padding-top: 100px;">
-        <h1 class="hero-title" data-i18n="heroTitle.colombia">🇨🇴 Navidad Colombiana</h1>
+        <h1 class="hero-title" data-i18n="heroTitle.colombia">🇨🇴 A�o Nuevo Colombiana</h1>
         <p class="hero-subtitle country-accent" data-i18n="heroSubtitle">Crea y envía tarjetas personalizadas</p>
         <div style="margin-top: 20px;">
             <a href="https://agem2024.github.io/SEGURITI-USC/orion-bots.html" target="_blank" class="create-btn"
@@ -490,8 +490,8 @@
             <div class="receiver-name">
                 ✨ <span id="recipientNameDisplay">Amigo/a</span> ✨
             </div>
-            <div class="receiver-message" id="christmasMessage">
-                ¡Que esta Navidad llene tu vida de bendiciones!
+            <div class="receiver-message" id="New YearMessage">
+                ¡Que esta A�o Nuevo llene tu vida de bendiciones!
             </div>
             <div class="receiver-footer">
                 🇨🇴 Con amor desde Colombia 🎄
@@ -581,7 +581,7 @@
                 }
                 toggle.textContent = '🎵';
                 musicPlaying = true;
-                const msg = lang === 'es' ? '🇨🇴🎵 Villancicos sonando' : '🇨🇴🎵 Christmas carols playing';
+                const msg = lang === 'es' ? '🇨🇴🎵 Villancicos sonando' : '🇨🇴🎵 New Year carols playing';
                 showToast(msg);
             }
         }
@@ -649,7 +649,7 @@
         function testVoice() {
             const personality = document.getElementById('voicePersonality').value;
             if (window.assetManager && window.assetManager.speak) {
-                window.assetManager.speak('¡Feliz Navidad! Este es un ejemplo de cómo sonará tu mensaje personalizado.', personality);
+                window.assetManager.speak('¡Feliz A�o Nuevo! Este es un ejemplo de cómo sonará tu mensaje personalizado.', personality);
                 showToast('🔊 Reproduciendo voz: ' + personality);
             } else {
                 alert('TTS no disponible en este navegador');
@@ -707,7 +707,7 @@
                 });
             } else {
                 mensaje = window.aiCardGenerator?.getFallbackMessage(nombre, tema) ||
-                    `¡Feliz Navidad, ${nombre}! Que esta temporada llene tu vida de amor y bendiciones.`;
+                    `¡Feliz A�o Nuevo, ${nombre}! Que esta temporada llene tu vida de amor y bendiciones.`;
             }
 
             // Generar imagen con IA

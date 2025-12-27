@@ -4,15 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🇺🇸 Christmas in USA | Create Your Card</title>
-    <meta name="description" content="Create and send personalized Christmas cards with American traditions.">
+    <title>🇺🇸 New Year in USA | Create Your Card</title>
+    <meta name="description" content="Create and send personalized New Year cards with American traditions.">
     <link rel="stylesheet" href="../assets/css/styles.css">
     <link rel="stylesheet" href="../assets/css/ai-assistant.css">
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🇺🇸</text></svg>">
     <style>
         .hero {
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), var(--dark-bg)), url('../assets/images/usa_christmas.png') center/cover;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), var(--dark-bg)), url('../assets/images/usa_New Year.png') center/cover;
         }
 
         .country-accent {
@@ -201,7 +201,7 @@
 
 <body>
     <div class="cable"></div>
-    <div class="christmas-lights"></div>
+    <div class="New Year-lights"></div>
     <div class="snowflakes"></div>
     <a href="../index.html" class="nav-back">← Back to Home</a>
     <a href="https://agem2024.github.io/SEGURITI-USC/card.html" class="floating-icon floating-icon-left" title="My Card"
@@ -226,13 +226,13 @@
     </div>
 
     <section class="hero" style="min-height: 60vh; padding-top: 100px;">
-        <h1 class="hero-title">🇺🇸 American Christmas</h1>
+        <h1 class="hero-title">🇺🇸 American New Year</h1>
         <p class="hero-subtitle" style="color: #3C3B6E;">Create & Share Personalized Cards</p>
     </section>
 
     <div id="creatorSection">
         <div class="card-creator">
-            <h2 class="creator-title">🎄 Create Your Christmas Card</h2>
+            <h2 class="creator-title">🎄 Create Your New Year Card</h2>
 
             <div class="form-group">
                 <label class="form-label">👤 Recipient's Name</label>
@@ -289,7 +289,7 @@
     <div id="receiverSection" style="display: none;">
         <div class="receiver-card">
             <div class="receiver-name">✨ <span id="recipientNameDisplay">Friend</span> ✨</div>
-            <div class="receiver-message" id="christmasMessage">May this Christmas fill your life with blessings!</div>
+            <div class="receiver-message" id="New YearMessage">May this New Year fill your life with blessings!</div>
             <div class="receiver-footer">🇺🇸 With love from the USA 🎄</div>
         </div>
     </div>
@@ -299,7 +299,7 @@
         <div class="traditions-grid">
             <div class="tradition-card">
                 <div class="tradition-icon">🎄</div>
-                <h3 class="tradition-title">Christmas Tree</h3>
+                <h3 class="tradition-title">New Year Tree</h3>
                 <p class="tradition-desc">Decorated with lights, ornaments, and a star on top.</p>
             </div>
             <div class="tradition-card">
@@ -356,7 +356,7 @@
                 }
                 toggle.textContent = '🎵';
                 musicPlaying = true;
-                const msg = lang === 'es' ? '🎵 Villancicos activos' : '🎵 Christmas Music ON';
+                const msg = lang === 'es' ? '🎵 Villancicos activos' : '🎵 New Year Music ON';
                 showToast(msg);
             }
         }
